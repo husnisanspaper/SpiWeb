@@ -1,0 +1,20 @@
+query GetSkillDropdDownList($fillupFormId: [BigInt!]) {
+  fillupFormFields(filter: {fillupFormId: {in: $fillupFormId}}) {
+    nodes {
+      id
+      fillupFormId
+      fieldId
+      answer
+      field {
+        fieldProperties(condition: {propertyId: "209"}) {
+          nodes {
+            fieldId
+            propertyId
+            value
+            updatedAt
+          }
+        }
+      }
+    }
+  }
+}

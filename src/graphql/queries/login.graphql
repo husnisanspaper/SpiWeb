@@ -1,0 +1,10 @@
+query loginSPF($email: String!) {
+    users(condition: {email:$email, deletedAt: null}){
+    nodes{
+      id
+      name
+      email
+      deviceName
+    }
+  }
+}

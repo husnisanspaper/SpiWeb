@@ -1,0 +1,13 @@
+query GetUserDetailsById($userID:BigInt){ 
+  users(condition: {id: $userID}){
+    nodes{
+      id
+      name
+      email
+      phoneNumber
+      password
+      facebookId
+      
+    }
+  }
+}

@@ -1,0 +1,7 @@
+query GetFillupFormIdFromProfile($userId: BigInt!) {
+ profiles(condition:{userId:$userId, deletedAt:null}){
+    nodes{
+      skills    
+    }
+  }
+}
