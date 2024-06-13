@@ -236,7 +236,7 @@ const SignIn: React.FC = () => {
                         Sign Up
                       </Link>
                     </p>
-                    <a href="/api/auth/logout">Logout</a>
+                    <a href="/api/auth/logout">Clear Session</a>
 
                   </div>
                 </form>

@@ -1,9 +1,14 @@
+"use strict";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // const [storedUserAuth, setStoredUserAuth, removeStoredUserAuth] = useLocalStorage("userAuth", null);
+
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -23,6 +28,14 @@ const DropdownUser = () => {
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
   });
+
+  const handleLogoutClick = () => {
+
+    localStorage.clear();
+    // removeStoredUserAuth();
+
+    
+  }
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -44,21 +57,23 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {/* {storedUserAuth?.name} */}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          {/* <span className="block text-xs">UX Designer</span> */}
         </span>
 
-        <span className="h-12 w-12 rounded-full">
+        <span className="h-12 w-12 rounded-full overflow-hidden">
           <Image
-            width={112}
-            height={112}
+            width={48}
+            height={48}
             src={"/images/user/user-01.png"}
-            style={{
-              width: "auto",
-              height: "auto",
-            }}
+            // style={{
+            //   width: "auto",
+            //   height: "auto",
+            // }}
             alt="User"
+            className="object-cover w-full h-full" // Ensure the image covers the area
+
           />
         </span>
 
@@ -161,7 +176,8 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button           onClick={() => handleLogoutClick()}         
+className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <svg
             className="fill-current"
             width="22"
@@ -179,7 +195,9 @@ const DropdownUser = () => {
               fill=""
             />
           </svg>
-          Log Out
+     <a href="/api/auth/logout"> Log Out</a>
+
+         
         </button>
       </div>
       {/* <!-- Dropdown End --> */}

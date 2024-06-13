@@ -1,12 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
-/* eslint-disable no-prototype-builtins */
-// @ts-nocheck
+
 import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'graphql-request/dist/types.dom';
+import { RequestInit } from 'next/dist/server/web/spec-extension/request';
+// import { RequestInit } from 'graphql-request/dist/types.dom';
 import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -1964,6 +1959,151 @@ export type BooleanFilter = {
   notIn?: InputMaybe<Array<Scalars['Boolean']['input']>>;
 };
 
+export type Certification = Node & {
+  __typename?: 'Certification';
+  /** Reads a single `User` that is related to this `Certification`. */
+  admin?: Maybe<User>;
+  adminId: Scalars['BigInt']['output'];
+  createdAt?: Maybe<Scalars['Datetime']['output']>;
+  deletedAt?: Maybe<Scalars['Datetime']['output']>;
+  description: Scalars['String']['output'];
+  id: Scalars['BigInt']['output'];
+  name: Scalars['String']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  /** Reads a single `Organization` that is related to this `Certification`. */
+  organization?: Maybe<Organization>;
+  organizationId: Scalars['BigInt']['output'];
+  qrValue?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['Datetime']['output']>;
+};
+
+/**
+ * A condition to be used against `Certification` object types. All fields are
+ * tested for equality and combined with a logical ‘and.’
+ */
+export type CertificationCondition = {
+  /** Checks for equality with the object’s `adminId` field. */
+  adminId?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `createdAt` field. */
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  /** Checks for equality with the object’s `deletedAt` field. */
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  /** Checks for equality with the object’s `description` field. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `organizationId` field. */
+  organizationId?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `qrValue` field. */
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** A filter to be used against `Certification` object types. All fields are combined with a logical ‘and.’ */
+export type CertificationFilter = {
+  /** Filter by the object’s `adminId` field. */
+  adminId?: InputMaybe<BigIntFilter>;
+  /** Checks for all expressions in this list. */
+  and?: InputMaybe<Array<CertificationFilter>>;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `deletedAt` field. */
+  deletedAt?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `description` field. */
+  description?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `id` field. */
+  id?: InputMaybe<BigIntFilter>;
+  /** Filter by the object’s `name` field. */
+  name?: InputMaybe<StringFilter>;
+  /** Negates the expression. */
+  not?: InputMaybe<CertificationFilter>;
+  /** Checks for any expressions in this list. */
+  or?: InputMaybe<Array<CertificationFilter>>;
+  /** Filter by the object’s `organizationId` field. */
+  organizationId?: InputMaybe<BigIntFilter>;
+  /** Filter by the object’s `qrValue` field. */
+  qrValue?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<DatetimeFilter>;
+};
+
+/** An input for mutations affecting `Certification` */
+export type CertificationInput = {
+  adminId: Scalars['BigInt']['input'];
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  name: Scalars['String']['input'];
+  organizationId: Scalars['BigInt']['input'];
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** Represents an update to a `Certification`. Fields that are set will be updated. */
+export type CertificationPatch = {
+  adminId?: InputMaybe<Scalars['BigInt']['input']>;
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  organizationId?: InputMaybe<Scalars['BigInt']['input']>;
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** A connection to a list of `Certification` values. */
+export type CertificationsConnection = {
+  __typename?: 'CertificationsConnection';
+  /** A list of edges which contains the `Certification` and cursor to aid in pagination. */
+  edges: Array<CertificationsEdge>;
+  /** A list of `Certification` objects. */
+  nodes: Array<Certification>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Certification` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Certification` edge in the connection. */
+export type CertificationsEdge = {
+  __typename?: 'CertificationsEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Certification` at the end of the edge. */
+  node: Certification;
+};
+
+/** Methods to use when ordering `Certification`. */
+export enum CertificationsOrderBy {
+  AdminIdAsc = 'ADMIN_ID_ASC',
+  AdminIdDesc = 'ADMIN_ID_DESC',
+  CreatedAtAsc = 'CREATED_AT_ASC',
+  CreatedAtDesc = 'CREATED_AT_DESC',
+  DeletedAtAsc = 'DELETED_AT_ASC',
+  DeletedAtDesc = 'DELETED_AT_DESC',
+  DescriptionAsc = 'DESCRIPTION_ASC',
+  DescriptionDesc = 'DESCRIPTION_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  Natural = 'NATURAL',
+  OrganizationIdAsc = 'ORGANIZATION_ID_ASC',
+  OrganizationIdDesc = 'ORGANIZATION_ID_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  QrValueAsc = 'QR_VALUE_ASC',
+  QrValueDesc = 'QR_VALUE_DESC',
+  UpdatedAtAsc = 'UPDATED_AT_ASC',
+  UpdatedAtDesc = 'UPDATED_AT_DESC'
+}
+
 /** A connection to a list of `Company` values. */
 export type CompaniesConnection = {
   __typename?: 'CompaniesConnection';
@@ -2856,6 +2996,148 @@ export enum ComponentsOrderBy {
   UpdatedAtDesc = 'UPDATED_AT_DESC'
 }
 
+export type Course = Node & {
+  __typename?: 'Course';
+  /** Reads a single `User` that is related to this `Course`. */
+  admin?: Maybe<User>;
+  adminId: Scalars['BigInt']['output'];
+  createdAt?: Maybe<Scalars['Datetime']['output']>;
+  deletedAt?: Maybe<Scalars['Datetime']['output']>;
+  description: Scalars['String']['output'];
+  id: Scalars['BigInt']['output'];
+  name: Scalars['String']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  /** Reads a single `Organization` that is related to this `Course`. */
+  organization?: Maybe<Organization>;
+  organizationId: Scalars['BigInt']['output'];
+  qrValue?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['Datetime']['output']>;
+};
+
+/** A condition to be used against `Course` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type CourseCondition = {
+  /** Checks for equality with the object’s `adminId` field. */
+  adminId?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `createdAt` field. */
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  /** Checks for equality with the object’s `deletedAt` field. */
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  /** Checks for equality with the object’s `description` field. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `organizationId` field. */
+  organizationId?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `qrValue` field. */
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** A filter to be used against `Course` object types. All fields are combined with a logical ‘and.’ */
+export type CourseFilter = {
+  /** Filter by the object’s `adminId` field. */
+  adminId?: InputMaybe<BigIntFilter>;
+  /** Checks for all expressions in this list. */
+  and?: InputMaybe<Array<CourseFilter>>;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `deletedAt` field. */
+  deletedAt?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `description` field. */
+  description?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `id` field. */
+  id?: InputMaybe<BigIntFilter>;
+  /** Filter by the object’s `name` field. */
+  name?: InputMaybe<StringFilter>;
+  /** Negates the expression. */
+  not?: InputMaybe<CourseFilter>;
+  /** Checks for any expressions in this list. */
+  or?: InputMaybe<Array<CourseFilter>>;
+  /** Filter by the object’s `organizationId` field. */
+  organizationId?: InputMaybe<BigIntFilter>;
+  /** Filter by the object’s `qrValue` field. */
+  qrValue?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<DatetimeFilter>;
+};
+
+/** An input for mutations affecting `Course` */
+export type CourseInput = {
+  adminId: Scalars['BigInt']['input'];
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  name: Scalars['String']['input'];
+  organizationId: Scalars['BigInt']['input'];
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** Represents an update to a `Course`. Fields that are set will be updated. */
+export type CoursePatch = {
+  adminId?: InputMaybe<Scalars['BigInt']['input']>;
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  organizationId?: InputMaybe<Scalars['BigInt']['input']>;
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** A connection to a list of `Course` values. */
+export type CoursesConnection = {
+  __typename?: 'CoursesConnection';
+  /** A list of edges which contains the `Course` and cursor to aid in pagination. */
+  edges: Array<CoursesEdge>;
+  /** A list of `Course` objects. */
+  nodes: Array<Course>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Course` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Course` edge in the connection. */
+export type CoursesEdge = {
+  __typename?: 'CoursesEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Course` at the end of the edge. */
+  node: Course;
+};
+
+/** Methods to use when ordering `Course`. */
+export enum CoursesOrderBy {
+  AdminIdAsc = 'ADMIN_ID_ASC',
+  AdminIdDesc = 'ADMIN_ID_DESC',
+  CreatedAtAsc = 'CREATED_AT_ASC',
+  CreatedAtDesc = 'CREATED_AT_DESC',
+  DeletedAtAsc = 'DELETED_AT_ASC',
+  DeletedAtDesc = 'DELETED_AT_DESC',
+  DescriptionAsc = 'DESCRIPTION_ASC',
+  DescriptionDesc = 'DESCRIPTION_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  Natural = 'NATURAL',
+  OrganizationIdAsc = 'ORGANIZATION_ID_ASC',
+  OrganizationIdDesc = 'ORGANIZATION_ID_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  QrValueAsc = 'QR_VALUE_ASC',
+  QrValueDesc = 'QR_VALUE_DESC',
+  UpdatedAtAsc = 'UPDATED_AT_ASC',
+  UpdatedAtDesc = 'UPDATED_AT_DESC'
+}
+
 /** All input for the create `Ability` mutation. */
 export type CreateAbilityInput = {
   /** The `Ability` to be created by this mutation. */
@@ -3029,6 +3311,43 @@ export type CreateAttachmentPayload = {
 /** The output of our create `Attachment` mutation. */
 export type CreateAttachmentPayloadAttachmentEdgeArgs = {
   orderBy?: InputMaybe<Array<AttachmentsOrderBy>>;
+};
+
+/** All input for the create `Certification` mutation. */
+export type CreateCertificationInput = {
+  /** The `Certification` to be created by this mutation. */
+  certification: CertificationInput;
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The output of our create `Certification` mutation. */
+export type CreateCertificationPayload = {
+  __typename?: 'CreateCertificationPayload';
+  /** Reads a single `User` that is related to this `Certification`. */
+  admin?: Maybe<User>;
+  /** The `Certification` that was created by this mutation. */
+  certification?: Maybe<Certification>;
+  /** An edge for our `Certification`. May be used by Relay 1. */
+  certificationEdge?: Maybe<CertificationsEdge>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** Reads a single `Organization` that is related to this `Certification`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our create `Certification` mutation. */
+export type CreateCertificationPayloadCertificationEdgeArgs = {
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
 };
 
 /** All input for the create `Company` mutation. */
@@ -3212,6 +3531,43 @@ export type CreateComponentPropertyPayload = {
 /** The output of our create `ComponentProperty` mutation. */
 export type CreateComponentPropertyPayloadComponentPropertyEdgeArgs = {
   orderBy?: InputMaybe<Array<ComponentPropertiesOrderBy>>;
+};
+
+/** All input for the create `Course` mutation. */
+export type CreateCourseInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The `Course` to be created by this mutation. */
+  course: CourseInput;
+};
+
+/** The output of our create `Course` mutation. */
+export type CreateCoursePayload = {
+  __typename?: 'CreateCoursePayload';
+  /** Reads a single `User` that is related to this `Course`. */
+  admin?: Maybe<User>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The `Course` that was created by this mutation. */
+  course?: Maybe<Course>;
+  /** An edge for our `Course`. May be used by Relay 1. */
+  courseEdge?: Maybe<CoursesEdge>;
+  /** Reads a single `Organization` that is related to this `Course`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our create `Course` mutation. */
+export type CreateCoursePayloadCourseEdgeArgs = {
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
 };
 
 /** All input for the create `Datatype` mutation. */
@@ -4094,6 +4450,43 @@ export type CreateIssuancePayload = {
 /** The output of our create `Issuance` mutation. */
 export type CreateIssuancePayloadIssuanceEdgeArgs = {
   orderBy?: InputMaybe<Array<IssuancesOrderBy>>;
+};
+
+/** All input for the create `Job` mutation. */
+export type CreateJobInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The `Job` to be created by this mutation. */
+  job: JobInput;
+};
+
+/** The output of our create `Job` mutation. */
+export type CreateJobPayload = {
+  __typename?: 'CreateJobPayload';
+  /** Reads a single `User` that is related to this `Job`. */
+  admin?: Maybe<User>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The `Job` that was created by this mutation. */
+  job?: Maybe<Job>;
+  /** An edge for our `Job`. May be used by Relay 1. */
+  jobEdge?: Maybe<JobsEdge>;
+  /** Reads a single `Organization` that is related to this `Job`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our create `Job` mutation. */
+export type CreateJobPayloadJobEdgeArgs = {
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
 };
 
 /** All input for the create `JobSendingEmailCategory` mutation. */
@@ -6113,6 +6506,54 @@ export type DeleteAttachmentPayloadAttachmentEdgeArgs = {
   orderBy?: InputMaybe<Array<AttachmentsOrderBy>>;
 };
 
+/** All input for the `deleteCertificationByNodeId` mutation. */
+export type DeleteCertificationByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The globally unique `ID` which will identify a single `Certification` to be deleted. */
+  nodeId: Scalars['ID']['input'];
+};
+
+/** All input for the `deleteCertification` mutation. */
+export type DeleteCertificationInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['BigInt']['input'];
+};
+
+/** The output of our delete `Certification` mutation. */
+export type DeleteCertificationPayload = {
+  __typename?: 'DeleteCertificationPayload';
+  /** Reads a single `User` that is related to this `Certification`. */
+  admin?: Maybe<User>;
+  /** The `Certification` that was deleted by this mutation. */
+  certification?: Maybe<Certification>;
+  /** An edge for our `Certification`. May be used by Relay 1. */
+  certificationEdge?: Maybe<CertificationsEdge>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  deletedCertificationNodeId?: Maybe<Scalars['ID']['output']>;
+  /** Reads a single `Organization` that is related to this `Certification`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our delete `Certification` mutation. */
+export type DeleteCertificationPayloadCertificationEdgeArgs = {
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
+};
+
 /** All input for the `deleteCompanyByNodeId` mutation. */
 export type DeleteCompanyByNodeIdInput = {
   /**
@@ -6321,6 +6762,54 @@ export type DeleteComponentPropertyPayload = {
 /** The output of our delete `ComponentProperty` mutation. */
 export type DeleteComponentPropertyPayloadComponentPropertyEdgeArgs = {
   orderBy?: InputMaybe<Array<ComponentPropertiesOrderBy>>;
+};
+
+/** All input for the `deleteCourseByNodeId` mutation. */
+export type DeleteCourseByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The globally unique `ID` which will identify a single `Course` to be deleted. */
+  nodeId: Scalars['ID']['input'];
+};
+
+/** All input for the `deleteCourse` mutation. */
+export type DeleteCourseInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['BigInt']['input'];
+};
+
+/** The output of our delete `Course` mutation. */
+export type DeleteCoursePayload = {
+  __typename?: 'DeleteCoursePayload';
+  /** Reads a single `User` that is related to this `Course`. */
+  admin?: Maybe<User>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The `Course` that was deleted by this mutation. */
+  course?: Maybe<Course>;
+  /** An edge for our `Course`. May be used by Relay 1. */
+  courseEdge?: Maybe<CoursesEdge>;
+  deletedCourseNodeId?: Maybe<Scalars['ID']['output']>;
+  /** Reads a single `Organization` that is related to this `Course`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our delete `Course` mutation. */
+export type DeleteCoursePayloadCourseEdgeArgs = {
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
 };
 
 /** All input for the `deleteDatatypeByDescription` mutation. */
@@ -7487,6 +7976,54 @@ export type DeleteIssuancePayload = {
 /** The output of our delete `Issuance` mutation. */
 export type DeleteIssuancePayloadIssuanceEdgeArgs = {
   orderBy?: InputMaybe<Array<IssuancesOrderBy>>;
+};
+
+/** All input for the `deleteJobByNodeId` mutation. */
+export type DeleteJobByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The globally unique `ID` which will identify a single `Job` to be deleted. */
+  nodeId: Scalars['ID']['input'];
+};
+
+/** All input for the `deleteJob` mutation. */
+export type DeleteJobInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['BigInt']['input'];
+};
+
+/** The output of our delete `Job` mutation. */
+export type DeleteJobPayload = {
+  __typename?: 'DeleteJobPayload';
+  /** Reads a single `User` that is related to this `Job`. */
+  admin?: Maybe<User>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  deletedJobNodeId?: Maybe<Scalars['ID']['output']>;
+  /** The `Job` that was deleted by this mutation. */
+  job?: Maybe<Job>;
+  /** An edge for our `Job`. May be used by Relay 1. */
+  jobEdge?: Maybe<JobsEdge>;
+  /** Reads a single `Organization` that is related to this `Job`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our delete `Job` mutation. */
+export type DeleteJobPayloadJobEdgeArgs = {
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
 };
 
 /** All input for the `deleteJobSendingEmailByNodeId` mutation. */
@@ -12283,6 +12820,7 @@ export type Form = Node & {
   customField?: Maybe<Scalars['String']['output']>;
   deletedAt?: Maybe<Scalars['Datetime']['output']>;
   description: Scalars['String']['output'];
+  emailBody?: Maybe<Scalars['String']['output']>;
   emailSubject?: Maybe<Scalars['String']['output']>;
   /** Reads and enables pagination through a set of `Field`. */
   fields: FieldsConnection;
@@ -12313,6 +12851,7 @@ export type Form = Node & {
   isLocked: Scalars['Boolean']['output'];
   isSendToOwner: Scalars['Boolean']['output'];
   isShareableToTemplateLibrary: Scalars['Boolean']['output'];
+  isSpecial?: Maybe<Scalars['Int']['output']>;
   logo?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
@@ -12751,6 +13290,8 @@ export type FormCondition = {
   deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
   /** Checks for equality with the object’s `description` field. */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `emailBody` field. */
+  emailBody?: InputMaybe<Scalars['String']['input']>;
   /** Checks for equality with the object’s `emailSubject` field. */
   emailSubject?: InputMaybe<Scalars['String']['input']>;
   /** Checks for equality with the object’s `gpsCoordinates` field. */
@@ -12767,6 +13308,8 @@ export type FormCondition = {
   isSendToOwner?: InputMaybe<Scalars['Boolean']['input']>;
   /** Checks for equality with the object’s `isShareableToTemplateLibrary` field. */
   isShareableToTemplateLibrary?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Checks for equality with the object’s `isSpecial` field. */
+  isSpecial?: InputMaybe<Scalars['Int']['input']>;
   /** Checks for equality with the object’s `logo` field. */
   logo?: InputMaybe<Scalars['String']['input']>;
   /** Checks for equality with the object’s `name` field. */
@@ -12879,6 +13422,8 @@ export type FormFilter = {
   deletedAt?: InputMaybe<DatetimeFilter>;
   /** Filter by the object’s `description` field. */
   description?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `emailBody` field. */
+  emailBody?: InputMaybe<StringFilter>;
   /** Filter by the object’s `emailSubject` field. */
   emailSubject?: InputMaybe<StringFilter>;
   /** Filter by the object’s `gpsCoordinates` field. */
@@ -12895,6 +13440,8 @@ export type FormFilter = {
   isSendToOwner?: InputMaybe<BooleanFilter>;
   /** Filter by the object’s `isShareableToTemplateLibrary` field. */
   isShareableToTemplateLibrary?: InputMaybe<BooleanFilter>;
+  /** Filter by the object’s `isSpecial` field. */
+  isSpecial?: InputMaybe<IntFilter>;
   /** Filter by the object’s `logo` field. */
   logo?: InputMaybe<StringFilter>;
   /** Filter by the object’s `name` field. */
@@ -13039,6 +13586,7 @@ export type FormInput = {
   customField?: InputMaybe<Scalars['String']['input']>;
   deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
   description: Scalars['String']['input'];
+  emailBody?: InputMaybe<Scalars['String']['input']>;
   emailSubject?: InputMaybe<Scalars['String']['input']>;
   gpsCoordinates?: InputMaybe<Scalars['String']['input']>;
   groupId?: InputMaybe<Scalars['BigInt']['input']>;
@@ -13047,6 +13595,7 @@ export type FormInput = {
   isLocked?: InputMaybe<Scalars['Boolean']['input']>;
   isSendToOwner?: InputMaybe<Scalars['Boolean']['input']>;
   isShareableToTemplateLibrary?: InputMaybe<Scalars['Boolean']['input']>;
+  isSpecial?: InputMaybe<Scalars['Int']['input']>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   recipients?: InputMaybe<Scalars['String']['input']>;
@@ -13238,6 +13787,7 @@ export type FormPatch = {
   customField?: InputMaybe<Scalars['String']['input']>;
   deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  emailBody?: InputMaybe<Scalars['String']['input']>;
   emailSubject?: InputMaybe<Scalars['String']['input']>;
   gpsCoordinates?: InputMaybe<Scalars['String']['input']>;
   groupId?: InputMaybe<Scalars['BigInt']['input']>;
@@ -13246,6 +13796,7 @@ export type FormPatch = {
   isLocked?: InputMaybe<Scalars['Boolean']['input']>;
   isSendToOwner?: InputMaybe<Scalars['Boolean']['input']>;
   isShareableToTemplateLibrary?: InputMaybe<Scalars['Boolean']['input']>;
+  isSpecial?: InputMaybe<Scalars['Int']['input']>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   recipients?: InputMaybe<Scalars['String']['input']>;
@@ -15254,6 +15805,8 @@ export enum FormsOrderBy {
   DeletedAtDesc = 'DELETED_AT_DESC',
   DescriptionAsc = 'DESCRIPTION_ASC',
   DescriptionDesc = 'DESCRIPTION_DESC',
+  EmailBodyAsc = 'EMAIL_BODY_ASC',
+  EmailBodyDesc = 'EMAIL_BODY_DESC',
   EmailSubjectAsc = 'EMAIL_SUBJECT_ASC',
   EmailSubjectDesc = 'EMAIL_SUBJECT_DESC',
   GpsCoordinatesAsc = 'GPS_COORDINATES_ASC',
@@ -15270,6 +15823,8 @@ export enum FormsOrderBy {
   IsSendToOwnerDesc = 'IS_SEND_TO_OWNER_DESC',
   IsShareableToTemplateLibraryAsc = 'IS_SHAREABLE_TO_TEMPLATE_LIBRARY_ASC',
   IsShareableToTemplateLibraryDesc = 'IS_SHAREABLE_TO_TEMPLATE_LIBRARY_DESC',
+  IsSpecialAsc = 'IS_SPECIAL_ASC',
+  IsSpecialDesc = 'IS_SPECIAL_DESC',
   LogoAsc = 'LOGO_ASC',
   LogoDesc = 'LOGO_DESC',
   NameAsc = 'NAME_ASC',
@@ -16582,6 +17137,101 @@ export enum IssuancesOrderBy {
   UserIdDesc = 'USER_ID_DESC'
 }
 
+export type Job = Node & {
+  __typename?: 'Job';
+  /** Reads a single `User` that is related to this `Job`. */
+  admin?: Maybe<User>;
+  adminId: Scalars['BigInt']['output'];
+  createdAt?: Maybe<Scalars['Datetime']['output']>;
+  deletedAt?: Maybe<Scalars['Datetime']['output']>;
+  description: Scalars['String']['output'];
+  id: Scalars['BigInt']['output'];
+  name: Scalars['String']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  /** Reads a single `Organization` that is related to this `Job`. */
+  organization?: Maybe<Organization>;
+  organizationId: Scalars['BigInt']['output'];
+  qrValue?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['Datetime']['output']>;
+};
+
+/** A condition to be used against `Job` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type JobCondition = {
+  /** Checks for equality with the object’s `adminId` field. */
+  adminId?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `createdAt` field. */
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  /** Checks for equality with the object’s `deletedAt` field. */
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  /** Checks for equality with the object’s `description` field. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `name` field. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `organizationId` field. */
+  organizationId?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `qrValue` field. */
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** A filter to be used against `Job` object types. All fields are combined with a logical ‘and.’ */
+export type JobFilter = {
+  /** Filter by the object’s `adminId` field. */
+  adminId?: InputMaybe<BigIntFilter>;
+  /** Checks for all expressions in this list. */
+  and?: InputMaybe<Array<JobFilter>>;
+  /** Filter by the object’s `createdAt` field. */
+  createdAt?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `deletedAt` field. */
+  deletedAt?: InputMaybe<DatetimeFilter>;
+  /** Filter by the object’s `description` field. */
+  description?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `id` field. */
+  id?: InputMaybe<BigIntFilter>;
+  /** Filter by the object’s `name` field. */
+  name?: InputMaybe<StringFilter>;
+  /** Negates the expression. */
+  not?: InputMaybe<JobFilter>;
+  /** Checks for any expressions in this list. */
+  or?: InputMaybe<Array<JobFilter>>;
+  /** Filter by the object’s `organizationId` field. */
+  organizationId?: InputMaybe<BigIntFilter>;
+  /** Filter by the object’s `qrValue` field. */
+  qrValue?: InputMaybe<StringFilter>;
+  /** Filter by the object’s `updatedAt` field. */
+  updatedAt?: InputMaybe<DatetimeFilter>;
+};
+
+/** An input for mutations affecting `Job` */
+export type JobInput = {
+  adminId: Scalars['BigInt']['input'];
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  description: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  name: Scalars['String']['input'];
+  organizationId: Scalars['BigInt']['input'];
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
+/** Represents an update to a `Job`. Fields that are set will be updated. */
+export type JobPatch = {
+  adminId?: InputMaybe<Scalars['BigInt']['input']>;
+  createdAt?: InputMaybe<Scalars['Datetime']['input']>;
+  deletedAt?: InputMaybe<Scalars['Datetime']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['BigInt']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  organizationId?: InputMaybe<Scalars['BigInt']['input']>;
+  qrValue?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']['input']>;
+};
+
 export type JobSendingEmail = Node & {
   __typename?: 'JobSendingEmail';
   /** Reads a single `JobSendingEmailCategory` that is related to this `JobSendingEmail`. */
@@ -17094,6 +17744,53 @@ export enum JobSendingEmailsOrderBy {
   SentFromDesc = 'SENT_FROM_DESC',
   SentToAsc = 'SENT_TO_ASC',
   SentToDesc = 'SENT_TO_DESC',
+  UpdatedAtAsc = 'UPDATED_AT_ASC',
+  UpdatedAtDesc = 'UPDATED_AT_DESC'
+}
+
+/** A connection to a list of `Job` values. */
+export type JobsConnection = {
+  __typename?: 'JobsConnection';
+  /** A list of edges which contains the `Job` and cursor to aid in pagination. */
+  edges: Array<JobsEdge>;
+  /** A list of `Job` objects. */
+  nodes: Array<Job>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Job` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Job` edge in the connection. */
+export type JobsEdge = {
+  __typename?: 'JobsEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Job` at the end of the edge. */
+  node: Job;
+};
+
+/** Methods to use when ordering `Job`. */
+export enum JobsOrderBy {
+  AdminIdAsc = 'ADMIN_ID_ASC',
+  AdminIdDesc = 'ADMIN_ID_DESC',
+  CreatedAtAsc = 'CREATED_AT_ASC',
+  CreatedAtDesc = 'CREATED_AT_DESC',
+  DeletedAtAsc = 'DELETED_AT_ASC',
+  DeletedAtDesc = 'DELETED_AT_DESC',
+  DescriptionAsc = 'DESCRIPTION_ASC',
+  DescriptionDesc = 'DESCRIPTION_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  NameAsc = 'NAME_ASC',
+  NameDesc = 'NAME_DESC',
+  Natural = 'NATURAL',
+  OrganizationIdAsc = 'ORGANIZATION_ID_ASC',
+  OrganizationIdDesc = 'ORGANIZATION_ID_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  QrValueAsc = 'QR_VALUE_ASC',
+  QrValueDesc = 'QR_VALUE_DESC',
   UpdatedAtAsc = 'UPDATED_AT_ASC',
   UpdatedAtDesc = 'UPDATED_AT_DESC'
 }
@@ -17965,6 +18662,8 @@ export type Mutation = {
   createAllowedSettingValue?: Maybe<CreateAllowedSettingValuePayload>;
   /** Creates a single `Attachment`. */
   createAttachment?: Maybe<CreateAttachmentPayload>;
+  /** Creates a single `Certification`. */
+  createCertification?: Maybe<CreateCertificationPayload>;
   /** Creates a single `Company`. */
   createCompany?: Maybe<CreateCompanyPayload>;
   /** Creates a single `CompanyUser`. */
@@ -17975,6 +18674,8 @@ export type Mutation = {
   createComponentEvent?: Maybe<CreateComponentEventPayload>;
   /** Creates a single `ComponentProperty`. */
   createComponentProperty?: Maybe<CreateComponentPropertyPayload>;
+  /** Creates a single `Course`. */
+  createCourse?: Maybe<CreateCoursePayload>;
   /** Creates a single `Datatype`. */
   createDatatype?: Maybe<CreateDatatypePayload>;
   /** Creates a single `Equipment`. */
@@ -18023,6 +18724,8 @@ export type Mutation = {
   createGroupUser?: Maybe<CreateGroupUserPayload>;
   /** Creates a single `Issuance`. */
   createIssuance?: Maybe<CreateIssuancePayload>;
+  /** Creates a single `Job`. */
+  createJob?: Maybe<CreateJobPayload>;
   /** Creates a single `JobSendingEmail`. */
   createJobSendingEmail?: Maybe<CreateJobSendingEmailPayload>;
   /** Creates a single `JobSendingEmailCategory`. */
@@ -18131,6 +18834,10 @@ export type Mutation = {
   deleteAttachment?: Maybe<DeleteAttachmentPayload>;
   /** Deletes a single `Attachment` using its globally unique id. */
   deleteAttachmentByNodeId?: Maybe<DeleteAttachmentPayload>;
+  /** Deletes a single `Certification` using a unique key. */
+  deleteCertification?: Maybe<DeleteCertificationPayload>;
+  /** Deletes a single `Certification` using its globally unique id. */
+  deleteCertificationByNodeId?: Maybe<DeleteCertificationPayload>;
   /** Deletes a single `Company` using a unique key. */
   deleteCompany?: Maybe<DeleteCompanyPayload>;
   /** Deletes a single `Company` using its globally unique id. */
@@ -18151,6 +18858,10 @@ export type Mutation = {
   deleteComponentProperty?: Maybe<DeleteComponentPropertyPayload>;
   /** Deletes a single `ComponentProperty` using its globally unique id. */
   deleteComponentPropertyByNodeId?: Maybe<DeleteComponentPropertyPayload>;
+  /** Deletes a single `Course` using a unique key. */
+  deleteCourse?: Maybe<DeleteCoursePayload>;
+  /** Deletes a single `Course` using its globally unique id. */
+  deleteCourseByNodeId?: Maybe<DeleteCoursePayload>;
   /** Deletes a single `Datatype` using a unique key. */
   deleteDatatype?: Maybe<DeleteDatatypePayload>;
   /** Deletes a single `Datatype` using a unique key. */
@@ -18255,6 +18966,10 @@ export type Mutation = {
   deleteIssuanceByEquipmentIdAndSerialNumber?: Maybe<DeleteIssuancePayload>;
   /** Deletes a single `Issuance` using its globally unique id. */
   deleteIssuanceByNodeId?: Maybe<DeleteIssuancePayload>;
+  /** Deletes a single `Job` using a unique key. */
+  deleteJob?: Maybe<DeleteJobPayload>;
+  /** Deletes a single `Job` using its globally unique id. */
+  deleteJobByNodeId?: Maybe<DeleteJobPayload>;
   /** Deletes a single `JobSendingEmail` using a unique key. */
   deleteJobSendingEmail?: Maybe<DeleteJobSendingEmailPayload>;
   /** Deletes a single `JobSendingEmail` using its globally unique id. */
@@ -18459,6 +19174,10 @@ export type Mutation = {
   updateAttachment?: Maybe<UpdateAttachmentPayload>;
   /** Updates a single `Attachment` using its globally unique id and a patch. */
   updateAttachmentByNodeId?: Maybe<UpdateAttachmentPayload>;
+  /** Updates a single `Certification` using a unique key and a patch. */
+  updateCertification?: Maybe<UpdateCertificationPayload>;
+  /** Updates a single `Certification` using its globally unique id and a patch. */
+  updateCertificationByNodeId?: Maybe<UpdateCertificationPayload>;
   /** Updates a single `Company` using a unique key and a patch. */
   updateCompany?: Maybe<UpdateCompanyPayload>;
   /** Updates a single `Company` using its globally unique id and a patch. */
@@ -18479,6 +19198,10 @@ export type Mutation = {
   updateComponentProperty?: Maybe<UpdateComponentPropertyPayload>;
   /** Updates a single `ComponentProperty` using its globally unique id and a patch. */
   updateComponentPropertyByNodeId?: Maybe<UpdateComponentPropertyPayload>;
+  /** Updates a single `Course` using a unique key and a patch. */
+  updateCourse?: Maybe<UpdateCoursePayload>;
+  /** Updates a single `Course` using its globally unique id and a patch. */
+  updateCourseByNodeId?: Maybe<UpdateCoursePayload>;
   /** Updates a single `Datatype` using a unique key and a patch. */
   updateDatatype?: Maybe<UpdateDatatypePayload>;
   /** Updates a single `Datatype` using a unique key and a patch. */
@@ -18583,6 +19306,10 @@ export type Mutation = {
   updateIssuanceByEquipmentIdAndSerialNumber?: Maybe<UpdateIssuancePayload>;
   /** Updates a single `Issuance` using its globally unique id and a patch. */
   updateIssuanceByNodeId?: Maybe<UpdateIssuancePayload>;
+  /** Updates a single `Job` using a unique key and a patch. */
+  updateJob?: Maybe<UpdateJobPayload>;
+  /** Updates a single `Job` using its globally unique id and a patch. */
+  updateJobByNodeId?: Maybe<UpdateJobPayload>;
   /** Updates a single `JobSendingEmail` using a unique key and a patch. */
   updateJobSendingEmail?: Maybe<UpdateJobSendingEmailPayload>;
   /** Updates a single `JobSendingEmail` using its globally unique id and a patch. */
@@ -18801,6 +19528,12 @@ export type MutationCreateAttachmentArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateCertificationArgs = {
+  input: CreateCertificationInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
@@ -18827,6 +19560,12 @@ export type MutationCreateComponentEventArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateComponentPropertyArgs = {
   input: CreateComponentPropertyInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateCourseArgs = {
+  input: CreateCourseInput;
 };
 
 
@@ -18971,6 +19710,12 @@ export type MutationCreateGroupUserArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateIssuanceArgs = {
   input: CreateIssuanceInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateJobArgs = {
+  input: CreateJobInput;
 };
 
 
@@ -19299,6 +20044,18 @@ export type MutationDeleteAttachmentByNodeIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteCertificationArgs = {
+  input: DeleteCertificationInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteCertificationByNodeIdArgs = {
+  input: DeleteCertificationByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteCompanyArgs = {
   input: DeleteCompanyInput;
 };
@@ -19355,6 +20112,18 @@ export type MutationDeleteComponentPropertyArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteComponentPropertyByNodeIdArgs = {
   input: DeleteComponentPropertyByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteCourseArgs = {
+  input: DeleteCourseInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteCourseByNodeIdArgs = {
+  input: DeleteCourseByNodeIdInput;
 };
 
 
@@ -19667,6 +20436,18 @@ export type MutationDeleteIssuanceByEquipmentIdAndSerialNumberArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteIssuanceByNodeIdArgs = {
   input: DeleteIssuanceByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteJobArgs = {
+  input: DeleteJobInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteJobByNodeIdArgs = {
+  input: DeleteJobByNodeIdInput;
 };
 
 
@@ -20283,6 +21064,18 @@ export type MutationUpdateAttachmentByNodeIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateCertificationArgs = {
+  input: UpdateCertificationInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateCertificationByNodeIdArgs = {
+  input: UpdateCertificationByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateCompanyArgs = {
   input: UpdateCompanyInput;
 };
@@ -20339,6 +21132,18 @@ export type MutationUpdateComponentPropertyArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateComponentPropertyByNodeIdArgs = {
   input: UpdateComponentPropertyByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateCourseArgs = {
+  input: UpdateCourseInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateCourseByNodeIdArgs = {
+  input: UpdateCourseByNodeIdInput;
 };
 
 
@@ -20651,6 +21456,18 @@ export type MutationUpdateIssuanceByEquipmentIdAndSerialNumberArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateIssuanceByNodeIdArgs = {
   input: UpdateIssuanceByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateJobArgs = {
+  input: UpdateJobInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateJobByNodeIdArgs = {
+  input: UpdateJobByNodeIdInput;
 };
 
 
@@ -21348,8 +22165,12 @@ export type Organization = Node & {
   adminsByTeamOrganizationIdAndAdminId: OrganizationAdminsByTeamOrganizationIdAndAdminIdManyToManyConnection;
   /** Reads and enables pagination through a set of `Admin`. */
   adminsByToolOrganizationIdAndAdminId: OrganizationAdminsByToolOrganizationIdAndAdminIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Certification`. */
+  certifications: CertificationsConnection;
   /** Reads and enables pagination through a set of `Company`. */
   companies: CompaniesConnection;
+  /** Reads and enables pagination through a set of `Course`. */
+  courses: CoursesConnection;
   createdAt?: Maybe<Scalars['Datetime']['output']>;
   deletedAt?: Maybe<Scalars['Datetime']['output']>;
   /** Reads and enables pagination through a set of `EquipmentType`. */
@@ -21379,6 +22200,8 @@ export type Organization = Node & {
   /** Reads and enables pagination through a set of `Group`. */
   groupsBySchedulerOrgIdAndGroupId: OrganizationGroupsBySchedulerOrgIdAndGroupIdManyToManyConnection;
   id: Scalars['BigInt']['output'];
+  /** Reads and enables pagination through a set of `Job`. */
+  jobs: JobsConnection;
   /** Reads and enables pagination through a set of `Metric`. */
   metricsByToolOrganizationIdAndMetricId: OrganizationMetricsByToolOrganizationIdAndMetricIdManyToManyConnection;
   name: Scalars['String']['output'];
@@ -21412,7 +22235,13 @@ export type Organization = Node & {
   /** Reads and enables pagination through a set of `UserInvite`. */
   userInvites: UserInvitesConnection;
   /** Reads and enables pagination through a set of `User`. */
+  usersByCertificationOrganizationIdAndAdminId: OrganizationUsersByCertificationOrganizationIdAndAdminIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `User`. */
+  usersByCourseOrganizationIdAndAdminId: OrganizationUsersByCourseOrganizationIdAndAdminIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `User`. */
   usersByEquipmentOrganizationIdAndPreparedBy: OrganizationUsersByEquipmentOrganizationIdAndPreparedByManyToManyConnection;
+  /** Reads and enables pagination through a set of `User`. */
+  usersByJobOrganizationIdAndAdminId: OrganizationUsersByJobOrganizationIdAndAdminIdManyToManyConnection;
   /** Reads and enables pagination through a set of `User`. */
   usersByOrganizationUserOrganizationIdAndUserId: OrganizationUsersByOrganizationUserOrganizationIdAndUserIdManyToManyConnection;
   /** Reads and enables pagination through a set of `User`. */
@@ -21499,6 +22328,18 @@ export type OrganizationAdminsByToolOrganizationIdAndAdminIdArgs = {
 };
 
 
+export type OrganizationCertificationsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CertificationCondition>;
+  filter?: InputMaybe<CertificationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
+};
+
+
 export type OrganizationCompaniesArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -21508,6 +22349,18 @@ export type OrganizationCompaniesArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<CompaniesOrderBy>>;
+};
+
+
+export type OrganizationCoursesArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CourseCondition>;
+  filter?: InputMaybe<CourseFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
 };
 
 
@@ -21664,6 +22517,18 @@ export type OrganizationGroupsBySchedulerOrgIdAndGroupIdArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<GroupsOrderBy>>;
+};
+
+
+export type OrganizationJobsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<JobCondition>;
+  filter?: InputMaybe<JobFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
 };
 
 
@@ -21835,7 +22700,43 @@ export type OrganizationUserInvitesArgs = {
 };
 
 
+export type OrganizationUsersByCertificationOrganizationIdAndAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<UserCondition>;
+  filter?: InputMaybe<UserFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<UsersOrderBy>>;
+};
+
+
+export type OrganizationUsersByCourseOrganizationIdAndAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<UserCondition>;
+  filter?: InputMaybe<UserFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<UsersOrderBy>>;
+};
+
+
 export type OrganizationUsersByEquipmentOrganizationIdAndPreparedByArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<UserCondition>;
+  filter?: InputMaybe<UserFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<UsersOrderBy>>;
+};
+
+
+export type OrganizationUsersByJobOrganizationIdAndAdminIdArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   condition?: InputMaybe<UserCondition>;
@@ -22789,6 +23690,80 @@ export type OrganizationUserPatch = {
   userId?: InputMaybe<Scalars['BigInt']['input']>;
 };
 
+/** A connection to a list of `User` values, with data from `Certification`. */
+export type OrganizationUsersByCertificationOrganizationIdAndAdminIdManyToManyConnection = {
+  __typename?: 'OrganizationUsersByCertificationOrganizationIdAndAdminIdManyToManyConnection';
+  /** A list of edges which contains the `User`, info from the `Certification`, and the cursor to aid in pagination. */
+  edges: Array<OrganizationUsersByCertificationOrganizationIdAndAdminIdManyToManyEdge>;
+  /** A list of `User` objects. */
+  nodes: Array<User>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `User` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `User` edge in the connection, with data from `Certification`. */
+export type OrganizationUsersByCertificationOrganizationIdAndAdminIdManyToManyEdge = {
+  __typename?: 'OrganizationUsersByCertificationOrganizationIdAndAdminIdManyToManyEdge';
+  /** Reads and enables pagination through a set of `Certification`. */
+  certificationsByAdminId: CertificationsConnection;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `User` at the end of the edge. */
+  node: User;
+};
+
+
+/** A `User` edge in the connection, with data from `Certification`. */
+export type OrganizationUsersByCertificationOrganizationIdAndAdminIdManyToManyEdgeCertificationsByAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CertificationCondition>;
+  filter?: InputMaybe<CertificationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
+};
+
+/** A connection to a list of `User` values, with data from `Course`. */
+export type OrganizationUsersByCourseOrganizationIdAndAdminIdManyToManyConnection = {
+  __typename?: 'OrganizationUsersByCourseOrganizationIdAndAdminIdManyToManyConnection';
+  /** A list of edges which contains the `User`, info from the `Course`, and the cursor to aid in pagination. */
+  edges: Array<OrganizationUsersByCourseOrganizationIdAndAdminIdManyToManyEdge>;
+  /** A list of `User` objects. */
+  nodes: Array<User>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `User` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `User` edge in the connection, with data from `Course`. */
+export type OrganizationUsersByCourseOrganizationIdAndAdminIdManyToManyEdge = {
+  __typename?: 'OrganizationUsersByCourseOrganizationIdAndAdminIdManyToManyEdge';
+  /** Reads and enables pagination through a set of `Course`. */
+  coursesByAdminId: CoursesConnection;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `User` at the end of the edge. */
+  node: User;
+};
+
+
+/** A `User` edge in the connection, with data from `Course`. */
+export type OrganizationUsersByCourseOrganizationIdAndAdminIdManyToManyEdgeCoursesByAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CourseCondition>;
+  filter?: InputMaybe<CourseFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
+};
+
 /** A connection to a list of `User` values, with data from `Equipment`. */
 export type OrganizationUsersByEquipmentOrganizationIdAndPreparedByManyToManyConnection = {
   __typename?: 'OrganizationUsersByEquipmentOrganizationIdAndPreparedByManyToManyConnection';
@@ -22824,6 +23799,43 @@ export type OrganizationUsersByEquipmentOrganizationIdAndPreparedByManyToManyEdg
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<EquipmentOrderBy>>;
+};
+
+/** A connection to a list of `User` values, with data from `Job`. */
+export type OrganizationUsersByJobOrganizationIdAndAdminIdManyToManyConnection = {
+  __typename?: 'OrganizationUsersByJobOrganizationIdAndAdminIdManyToManyConnection';
+  /** A list of edges which contains the `User`, info from the `Job`, and the cursor to aid in pagination. */
+  edges: Array<OrganizationUsersByJobOrganizationIdAndAdminIdManyToManyEdge>;
+  /** A list of `User` objects. */
+  nodes: Array<User>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `User` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `User` edge in the connection, with data from `Job`. */
+export type OrganizationUsersByJobOrganizationIdAndAdminIdManyToManyEdge = {
+  __typename?: 'OrganizationUsersByJobOrganizationIdAndAdminIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `Job`. */
+  jobsByAdminId: JobsConnection;
+  /** The `User` at the end of the edge. */
+  node: User;
+};
+
+
+/** A `User` edge in the connection, with data from `Job`. */
+export type OrganizationUsersByJobOrganizationIdAndAdminIdManyToManyEdgeJobsByAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<JobCondition>;
+  filter?: InputMaybe<JobFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
 };
 
 /** A connection to a list of `User` values, with data from `OrganizationUser`. */
@@ -24282,6 +25294,11 @@ export type Query = Node & {
   attachmentByNodeId?: Maybe<Attachment>;
   /** Reads and enables pagination through a set of `Attachment`. */
   attachments?: Maybe<AttachmentsConnection>;
+  certification?: Maybe<Certification>;
+  /** Reads a single `Certification` using its globally unique `ID`. */
+  certificationByNodeId?: Maybe<Certification>;
+  /** Reads and enables pagination through a set of `Certification`. */
+  certifications?: Maybe<CertificationsConnection>;
   /** Reads and enables pagination through a set of `Company`. */
   companies?: Maybe<CompaniesConnection>;
   company?: Maybe<Company>;
@@ -24306,6 +25323,11 @@ export type Query = Node & {
   componentPropertyByNodeId?: Maybe<ComponentProperty>;
   /** Reads and enables pagination through a set of `Component`. */
   components?: Maybe<ComponentsConnection>;
+  course?: Maybe<Course>;
+  /** Reads a single `Course` using its globally unique `ID`. */
+  courseByNodeId?: Maybe<Course>;
+  /** Reads and enables pagination through a set of `Course`. */
+  courses?: Maybe<CoursesConnection>;
   datatype?: Maybe<Datatype>;
   datatypeByDescription?: Maybe<Datatype>;
   /** Reads a single `Datatype` using its globally unique `ID`. */
@@ -24431,6 +25453,9 @@ export type Query = Node & {
   issuanceByNodeId?: Maybe<Issuance>;
   /** Reads and enables pagination through a set of `Issuance`. */
   issuances?: Maybe<IssuancesConnection>;
+  job?: Maybe<Job>;
+  /** Reads a single `Job` using its globally unique `ID`. */
+  jobByNodeId?: Maybe<Job>;
   jobSendingEmail?: Maybe<JobSendingEmail>;
   /** Reads a single `JobSendingEmail` using its globally unique `ID`. */
   jobSendingEmailByNodeId?: Maybe<JobSendingEmail>;
@@ -24446,6 +25471,8 @@ export type Query = Node & {
   jobSendingEmailLogs?: Maybe<JobSendingEmailLogsConnection>;
   /** Reads and enables pagination through a set of `JobSendingEmail`. */
   jobSendingEmails?: Maybe<JobSendingEmailsConnection>;
+  /** Reads and enables pagination through a set of `Job`. */
+  jobs?: Maybe<JobsConnection>;
   kind?: Maybe<Kind>;
   kindByDescription?: Maybe<Kind>;
   /** Reads a single `Kind` using its globally unique `ID`. */
@@ -24795,6 +25822,31 @@ export type QueryAttachmentsArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
+export type QueryCertificationArgs = {
+  id: Scalars['BigInt']['input'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryCertificationByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryCertificationsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CertificationCondition>;
+  filter?: InputMaybe<CertificationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
+};
+
+
+/** The root query type which gives access points into the data universe. */
 export type QueryCompaniesArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -24916,6 +25968,31 @@ export type QueryComponentsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<ComponentsOrderBy>>;
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryCourseArgs = {
+  id: Scalars['BigInt']['input'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryCourseByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryCoursesArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CourseCondition>;
+  filter?: InputMaybe<CourseFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
 };
 
 
@@ -25564,6 +26641,18 @@ export type QueryIssuancesArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
+export type QueryJobArgs = {
+  id: Scalars['BigInt']['input'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryJobByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
 export type QueryJobSendingEmailArgs = {
   id: Scalars['BigInt']['input'];
 };
@@ -25635,6 +26724,19 @@ export type QueryJobSendingEmailsArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<JobSendingEmailsOrderBy>>;
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryJobsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<JobCondition>;
+  filter?: InputMaybe<JobFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
 };
 
 
@@ -31607,6 +32709,57 @@ export type UpdateAttachmentPayloadAttachmentEdgeArgs = {
   orderBy?: InputMaybe<Array<AttachmentsOrderBy>>;
 };
 
+/** All input for the `updateCertificationByNodeId` mutation. */
+export type UpdateCertificationByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The globally unique `ID` which will identify a single `Certification` to be updated. */
+  nodeId: Scalars['ID']['input'];
+  /** An object where the defined keys will be set on the `Certification` being updated. */
+  patch: CertificationPatch;
+};
+
+/** All input for the `updateCertification` mutation. */
+export type UpdateCertificationInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['BigInt']['input'];
+  /** An object where the defined keys will be set on the `Certification` being updated. */
+  patch: CertificationPatch;
+};
+
+/** The output of our update `Certification` mutation. */
+export type UpdateCertificationPayload = {
+  __typename?: 'UpdateCertificationPayload';
+  /** Reads a single `User` that is related to this `Certification`. */
+  admin?: Maybe<User>;
+  /** The `Certification` that was updated by this mutation. */
+  certification?: Maybe<Certification>;
+  /** An edge for our `Certification`. May be used by Relay 1. */
+  certificationEdge?: Maybe<CertificationsEdge>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** Reads a single `Organization` that is related to this `Certification`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our update `Certification` mutation. */
+export type UpdateCertificationPayloadCertificationEdgeArgs = {
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
+};
+
 /** All input for the `updateCompanyByNodeId` mutation. */
 export type UpdateCompanyByNodeIdInput = {
   /**
@@ -31831,6 +32984,57 @@ export type UpdateComponentPropertyPayload = {
 /** The output of our update `ComponentProperty` mutation. */
 export type UpdateComponentPropertyPayloadComponentPropertyEdgeArgs = {
   orderBy?: InputMaybe<Array<ComponentPropertiesOrderBy>>;
+};
+
+/** All input for the `updateCourseByNodeId` mutation. */
+export type UpdateCourseByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The globally unique `ID` which will identify a single `Course` to be updated. */
+  nodeId: Scalars['ID']['input'];
+  /** An object where the defined keys will be set on the `Course` being updated. */
+  patch: CoursePatch;
+};
+
+/** All input for the `updateCourse` mutation. */
+export type UpdateCourseInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['BigInt']['input'];
+  /** An object where the defined keys will be set on the `Course` being updated. */
+  patch: CoursePatch;
+};
+
+/** The output of our update `Course` mutation. */
+export type UpdateCoursePayload = {
+  __typename?: 'UpdateCoursePayload';
+  /** Reads a single `User` that is related to this `Course`. */
+  admin?: Maybe<User>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The `Course` that was updated by this mutation. */
+  course?: Maybe<Course>;
+  /** An edge for our `Course`. May be used by Relay 1. */
+  courseEdge?: Maybe<CoursesEdge>;
+  /** Reads a single `Organization` that is related to this `Course`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our update `Course` mutation. */
+export type UpdateCoursePayloadCourseEdgeArgs = {
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
 };
 
 /** All input for the `updateDatatypeByDescription` mutation. */
@@ -33078,6 +34282,57 @@ export type UpdateIssuancePayload = {
 /** The output of our update `Issuance` mutation. */
 export type UpdateIssuancePayloadIssuanceEdgeArgs = {
   orderBy?: InputMaybe<Array<IssuancesOrderBy>>;
+};
+
+/** All input for the `updateJobByNodeId` mutation. */
+export type UpdateJobByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The globally unique `ID` which will identify a single `Job` to be updated. */
+  nodeId: Scalars['ID']['input'];
+  /** An object where the defined keys will be set on the `Job` being updated. */
+  patch: JobPatch;
+};
+
+/** All input for the `updateJob` mutation. */
+export type UpdateJobInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['BigInt']['input'];
+  /** An object where the defined keys will be set on the `Job` being updated. */
+  patch: JobPatch;
+};
+
+/** The output of our update `Job` mutation. */
+export type UpdateJobPayload = {
+  __typename?: 'UpdateJobPayload';
+  /** Reads a single `User` that is related to this `Job`. */
+  admin?: Maybe<User>;
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** The `Job` that was updated by this mutation. */
+  job?: Maybe<Job>;
+  /** An edge for our `Job`. May be used by Relay 1. */
+  jobEdge?: Maybe<JobsEdge>;
+  /** Reads a single `Organization` that is related to this `Job`. */
+  organization?: Maybe<Organization>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+};
+
+
+/** The output of our update `Job` mutation. */
+export type UpdateJobPayloadJobEdgeArgs = {
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
 };
 
 /** All input for the `updateJobSendingEmailByNodeId` mutation. */
@@ -35198,12 +36453,16 @@ export type User = Node & {
   adminsBySchedulerUserIdAndAdminId: UserAdminsBySchedulerUserIdAndAdminIdManyToManyConnection;
   cardBrand?: Maybe<Scalars['String']['output']>;
   cardLastFour?: Maybe<Scalars['String']['output']>;
+  /** Reads and enables pagination through a set of `Certification`. */
+  certificationsByAdminId: CertificationsConnection;
   /** Reads and enables pagination through a set of `User`. */
   childUsers: UsersConnection;
   /** Reads and enables pagination through a set of `Company`. */
   companiesByCompanyUserUserIdAndCompanyId: UserCompaniesByCompanyUserUserIdAndCompanyIdManyToManyConnection;
   /** Reads and enables pagination through a set of `CompanyUser`. */
   companyUsers: CompanyUsersConnection;
+  /** Reads and enables pagination through a set of `Course`. */
+  coursesByAdminId: CoursesConnection;
   createdAt?: Maybe<Scalars['Datetime']['output']>;
   deletedAt?: Maybe<Scalars['Datetime']['output']>;
   deviceName?: Maybe<Scalars['String']['output']>;
@@ -35258,6 +36517,8 @@ export type User = Node & {
   jobSendingEmailsBySentFrom: JobSendingEmailsConnection;
   /** Reads and enables pagination through a set of `JobSendingEmail`. */
   jobSendingEmailsBySentTo: JobSendingEmailsConnection;
+  /** Reads and enables pagination through a set of `Job`. */
+  jobsByAdminId: JobsConnection;
   /** Reads and enables pagination through a set of `LoginTransaction`. */
   loginTransactions: LoginTransactionsConnection;
   /** The user_name on register form. */
@@ -35267,7 +36528,13 @@ export type User = Node & {
   /** Reads and enables pagination through a set of `OrganizationUser`. */
   organizationUsers: OrganizationUsersConnection;
   /** Reads and enables pagination through a set of `Organization`. */
+  organizationsByCertificationAdminIdAndOrganizationId: UserOrganizationsByCertificationAdminIdAndOrganizationIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Organization`. */
+  organizationsByCourseAdminIdAndOrganizationId: UserOrganizationsByCourseAdminIdAndOrganizationIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Organization`. */
   organizationsByEquipmentPreparedByAndOrganizationId: UserOrganizationsByEquipmentPreparedByAndOrganizationIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Organization`. */
+  organizationsByJobAdminIdAndOrganizationId: UserOrganizationsByJobAdminIdAndOrganizationIdManyToManyConnection;
   /** Reads and enables pagination through a set of `Organization`. */
   organizationsByOrganizationUserUserIdAndOrganizationId: UserOrganizationsByOrganizationUserUserIdAndOrganizationIdManyToManyConnection;
   /** Reads and enables pagination through a set of `Organization`. */
@@ -35382,6 +36649,18 @@ export type UserAdminsBySchedulerUserIdAndAdminIdArgs = {
 };
 
 
+export type UserCertificationsByAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CertificationCondition>;
+  filter?: InputMaybe<CertificationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
+};
+
+
 export type UserChildUsersArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -35415,6 +36694,18 @@ export type UserCompanyUsersArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<CompanyUsersOrderBy>>;
+};
+
+
+export type UserCoursesByAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CourseCondition>;
+  filter?: InputMaybe<CourseFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
 };
 
 
@@ -35682,6 +36973,18 @@ export type UserJobSendingEmailsBySentToArgs = {
 };
 
 
+export type UserJobsByAdminIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<JobCondition>;
+  filter?: InputMaybe<JobFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
+};
+
+
 export type UserLoginTransactionsArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -35706,7 +37009,43 @@ export type UserOrganizationUsersArgs = {
 };
 
 
+export type UserOrganizationsByCertificationAdminIdAndOrganizationIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<OrganizationCondition>;
+  filter?: InputMaybe<OrganizationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<OrganizationsOrderBy>>;
+};
+
+
+export type UserOrganizationsByCourseAdminIdAndOrganizationIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<OrganizationCondition>;
+  filter?: InputMaybe<OrganizationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<OrganizationsOrderBy>>;
+};
+
+
 export type UserOrganizationsByEquipmentPreparedByAndOrganizationIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<OrganizationCondition>;
+  filter?: InputMaybe<OrganizationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<OrganizationsOrderBy>>;
+};
+
+
+export type UserOrganizationsByJobAdminIdAndOrganizationIdArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   condition?: InputMaybe<OrganizationCondition>;
@@ -36996,6 +38335,80 @@ export type UserJobSendingEmailCategoriesByJobSendingEmailSentToAndCategoryIdMan
   orderBy?: InputMaybe<Array<JobSendingEmailsOrderBy>>;
 };
 
+/** A connection to a list of `Organization` values, with data from `Certification`. */
+export type UserOrganizationsByCertificationAdminIdAndOrganizationIdManyToManyConnection = {
+  __typename?: 'UserOrganizationsByCertificationAdminIdAndOrganizationIdManyToManyConnection';
+  /** A list of edges which contains the `Organization`, info from the `Certification`, and the cursor to aid in pagination. */
+  edges: Array<UserOrganizationsByCertificationAdminIdAndOrganizationIdManyToManyEdge>;
+  /** A list of `Organization` objects. */
+  nodes: Array<Organization>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Organization` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Organization` edge in the connection, with data from `Certification`. */
+export type UserOrganizationsByCertificationAdminIdAndOrganizationIdManyToManyEdge = {
+  __typename?: 'UserOrganizationsByCertificationAdminIdAndOrganizationIdManyToManyEdge';
+  /** Reads and enables pagination through a set of `Certification`. */
+  certifications: CertificationsConnection;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Organization` at the end of the edge. */
+  node: Organization;
+};
+
+
+/** A `Organization` edge in the connection, with data from `Certification`. */
+export type UserOrganizationsByCertificationAdminIdAndOrganizationIdManyToManyEdgeCertificationsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CertificationCondition>;
+  filter?: InputMaybe<CertificationFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CertificationsOrderBy>>;
+};
+
+/** A connection to a list of `Organization` values, with data from `Course`. */
+export type UserOrganizationsByCourseAdminIdAndOrganizationIdManyToManyConnection = {
+  __typename?: 'UserOrganizationsByCourseAdminIdAndOrganizationIdManyToManyConnection';
+  /** A list of edges which contains the `Organization`, info from the `Course`, and the cursor to aid in pagination. */
+  edges: Array<UserOrganizationsByCourseAdminIdAndOrganizationIdManyToManyEdge>;
+  /** A list of `Organization` objects. */
+  nodes: Array<Organization>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Organization` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Organization` edge in the connection, with data from `Course`. */
+export type UserOrganizationsByCourseAdminIdAndOrganizationIdManyToManyEdge = {
+  __typename?: 'UserOrganizationsByCourseAdminIdAndOrganizationIdManyToManyEdge';
+  /** Reads and enables pagination through a set of `Course`. */
+  courses: CoursesConnection;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Organization` at the end of the edge. */
+  node: Organization;
+};
+
+
+/** A `Organization` edge in the connection, with data from `Course`. */
+export type UserOrganizationsByCourseAdminIdAndOrganizationIdManyToManyEdgeCoursesArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<CourseCondition>;
+  filter?: InputMaybe<CourseFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<CoursesOrderBy>>;
+};
+
 /** A connection to a list of `Organization` values, with data from `Equipment`. */
 export type UserOrganizationsByEquipmentPreparedByAndOrganizationIdManyToManyConnection = {
   __typename?: 'UserOrganizationsByEquipmentPreparedByAndOrganizationIdManyToManyConnection';
@@ -37031,6 +38444,43 @@ export type UserOrganizationsByEquipmentPreparedByAndOrganizationIdManyToManyEdg
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<EquipmentOrderBy>>;
+};
+
+/** A connection to a list of `Organization` values, with data from `Job`. */
+export type UserOrganizationsByJobAdminIdAndOrganizationIdManyToManyConnection = {
+  __typename?: 'UserOrganizationsByJobAdminIdAndOrganizationIdManyToManyConnection';
+  /** A list of edges which contains the `Organization`, info from the `Job`, and the cursor to aid in pagination. */
+  edges: Array<UserOrganizationsByJobAdminIdAndOrganizationIdManyToManyEdge>;
+  /** A list of `Organization` objects. */
+  nodes: Array<Organization>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Organization` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Organization` edge in the connection, with data from `Job`. */
+export type UserOrganizationsByJobAdminIdAndOrganizationIdManyToManyEdge = {
+  __typename?: 'UserOrganizationsByJobAdminIdAndOrganizationIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `Job`. */
+  jobs: JobsConnection;
+  /** The `Organization` at the end of the edge. */
+  node: Organization;
+};
+
+
+/** A `Organization` edge in the connection, with data from `Job`. */
+export type UserOrganizationsByJobAdminIdAndOrganizationIdManyToManyEdgeJobsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<JobCondition>;
+  filter?: InputMaybe<JobFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<JobsOrderBy>>;
 };
 
 /** A connection to a list of `Organization` values, with data from `OrganizationUser`. */
