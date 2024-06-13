@@ -3,11 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useUserStore } from "@/store/user/userStore";
+import { clear } from "console";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // const [storedUserAuth, setStoredUserAuth, removeStoredUserAuth] = useLocalStorage("userAuth", null);
+  const { userAuth, clearUserId } = useUserStore();
+  {console.log('userAuth dari dropdown',userAuth)}
 
 
   const trigger = useRef<any>(null);
@@ -32,7 +35,7 @@ const DropdownUser = () => {
   const handleLogoutClick = () => {
 
     localStorage.clear();
-    // removeStoredUserAuth();
+    clearUserId();
 
     
   }
@@ -57,16 +60,16 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {/* {storedUserAuth?.name} */}
+            {userAuth?.name}
           </span>
-          {/* <span className="block text-xs">UX Designer</span> */}
+          <span className="block text-xs">UX Designer</span>
         </span>
 
         <span className="h-12 w-12 rounded-full overflow-hidden">
           <Image
             width={48}
             height={48}
-            src={"/images/user/user-01.png"}
+            src={userAuth?.picture}
             // style={{
             //   width: "auto",
             //   height: "auto",
