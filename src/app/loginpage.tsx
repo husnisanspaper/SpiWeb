@@ -17,6 +17,9 @@ import { useRouter } from 'next/navigation';
 
 const SignIn: React.FC = () => {
 
+  const {user, error, isLoading} = useUser();
+
+  console.log('user lepas logout',user)
 
 
 

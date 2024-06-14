@@ -34,6 +34,8 @@ const DropdownUser = () => {
 
   const handleLogoutClick = () => {
 
+
+    window.location.href = '/api/auth/logout';
     localStorage.clear();
     clearUserId();
 
@@ -69,7 +71,7 @@ const DropdownUser = () => {
           <Image
             width={48}
             height={48}
-            src={userAuth?.picture}
+            src={userAuth?.picture ?? "/images/logo/SansPaperID.svg"}
             // style={{
             //   width: "auto",
             //   height: "auto",
@@ -178,6 +180,22 @@ const DropdownUser = () => {
               Account Settings
             </Link>
           </li>
+          <li>
+            <Link
+              href="https://form.sanspaper.com/"
+              className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+            >
+                <div className="relative h-full rounded-full overflow-hidden drop-shadow-2">
+    <Image
+      src={"/images/logo/spfm.svg"}
+      width={25}
+      height={25}
+      alt="spfm"
+    />
+  </div>
+              SP Form
+            </Link>
+          </li>
         </ul>
         <button           onClick={() => handleLogoutClick()}         
 className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
@@ -198,7 +216,7 @@ className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 
               fill=""
             />
           </svg>
-     <a href="/api/auth/logout"> Log Out</a>
+      Log Out
 
          
         </button>
