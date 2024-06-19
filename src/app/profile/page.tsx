@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useUserStore } from "@/store/user/userStore";
 import useUserSkill from "@/graphql/getUserSkill";
 import Loader from "@/components/common/Loader";
+import ExcelGenerator from "@/components/ExcelGenerator"; 
 
 
 // export const metadata: Metadata = {
@@ -14,6 +15,8 @@ import Loader from "@/components/common/Loader";
 //   description:
 //     "This is Profile page for SPI - Tailwind CSS Admin Dashboard Template",
 // };
+
+
 
 const Profile = () => {
 
@@ -35,9 +38,7 @@ const Profile = () => {
         <div>
     </div>
 
-    <div>
-      <p>User ID: {userId}</p>
-    </div>
+
 
         <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="relative z-20 h-35 md:h-65">
@@ -169,7 +170,11 @@ const Profile = () => {
               <div className="mx-auto max-w-180">
                 <h4 className="font-semibold text-black dark:text-white">
                   My Skills
-                </h4>
+                  </h4>
+                    {dataSkill && dataSkill.length > 0  ?  <ExcelGenerator dataSkill={dataSkill} /> :null}
+
+
+            
                 <p className="mt-4.5">
                   {isLoadingSkill  && !dataSkill ? <Loader /> : dataSkill == null ?  'No Skill Added Yet' :  
 
