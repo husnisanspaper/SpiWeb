@@ -5,6 +5,8 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Link from "next/link";
 import { useUserStore } from "@/store/user/userStore";
+import useUserSkill from "@/graphql/getUserSkill";
+import Loader from "@/components/common/Loader";
 
 
 // export const metadata: Metadata = {
@@ -16,6 +18,15 @@ import { useUserStore } from "@/store/user/userStore";
 const Profile = () => {
 
   const { userId, userAuth } = useUserStore();
+  const { dataSkill, errorSkill, isLoadingSkill } = useUserSkill(userId);
+
+  console.log('####dataSkill',dataSkill);
+
+
+  if(errorSkill){
+    console.log('####Error',errorSkill);
+  }
+
 
   return (
     <DefaultLayout>
@@ -157,14 +168,28 @@ const Profile = () => {
 
               <div className="mx-auto max-w-180">
                 <h4 className="font-semibold text-black dark:text-white">
-                  About Me
+                  My Skills
                 </h4>
                 <p className="mt-4.5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Pellentesque posuere fermentum urna, eu condimentum mauris
-                  tempus ut. Donec fermentum blandit aliquet. Etiam dictum
-                  dapibus ultricies. Sed vel aliquet libero. Nunc a augue
-                  fermentum, pharetra ligula sed, aliquam lacus.
+                  {isLoadingSkill  && !dataSkill ? <Loader /> : dataSkill == null ?  'No Skill Added Yet' :  
+
+
+
+                    dataSkill?.map((a: any) =>
+                        a.skill.map((sk: any) => (
+                          <div style={{ marginBottom: '10px' }}> {/* Added margin for spacing */}
+                            <div style={{ fontWeight: 'bold', textAlign: 'left' }}>{sk.description}</div>
+                            <div style={{ textAlign: 'left' }}>{a.expiry ? a.expiry.replace(/"/g, '') : ''}
+</div> 
+                          </div>
+                        ))
+                      )
+                  
+                      
+                      
+  
+                  }
+
                 </p>
               </div>
 
