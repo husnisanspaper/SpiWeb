@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 
 type SetValue<T> = T | ((val: T) => T);
@@ -6,10 +5,14 @@ type SetValue<T> = T | ((val: T) => T);
 function useLocalStorage<T>(
   key: string,
   initialValue: T,
-): [T, (value: SetValue<T>) => void] {
+): [T, (value: SetValue<T>) => void, () => void] { // Add the third element for removal
   // State to store our value
-  // Pass  initial state function to useState so logic is only executed once
+  // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
+
+    console.log('useLocalStorage:', key, initialValue)
+
+
     try {
       // Get from local storage by key
       if (typeof window !== "undefined") {
@@ -24,6 +27,20 @@ function useLocalStorage<T>(
       return initialValue;
     }
   });
+
+  // Function to remove the item from local storage
+  const removeStoredValue = () => {
+
+    console.log('removeStoredValue:', key);
+    try {
+      if (typeof window !== "undefined") {
+        // browser code
+        window.localStorage.removeItem(key);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // useEffect to update local storage when the state changes
   useEffect(() => {
@@ -44,7 +61,7 @@ function useLocalStorage<T>(
     }
   }, [key, storedValue]);
 
-  return [storedValue, setStoredValue];
+  return [storedValue, setStoredValue, removeStoredValue]; // Return the removal function
 }
 
 export default useLocalStorage;

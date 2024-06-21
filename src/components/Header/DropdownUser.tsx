@@ -1,38 +1,136 @@
+"use strict";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { useUserStore } from "@/store/user/userStore";
+import { clear } from "console";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isLocationOn, setIsLocationOn] = useState<boolean>(false); // State for location sharing
+  const [isAvailable, setIsAvailable] = useState<boolean>(true); // State for user availability
 
+  const { userAuth, clearUserId } = useUserStore();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+  const watchIdRef = useRef<any>(null); // useRef to keep track of watchId
+  const isGeolocationSupported = "geolocation" in navigator;
 
-  // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }: MouseEvent) => {
-      if (!dropdown.current) return;
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
 
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }: KeyboardEvent) => {
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
-  });
+    // Effect to manage click outside and ESC key
+    useEffect(() => {
+      const clickHandler = ({ target }: { target: any }) => {
+        if (!dropdown.current) return;
+        if (
+          !dropdownOpen ||
+          dropdown.current.contains(target) ||
+          trigger.current.contains(target)
+        )
+          return;
+        setDropdownOpen(false);
+      };
+  
+      const keyHandler = ({ keyCode }: KeyboardEvent) => {
+        if (keyCode === 27) { // ESC key
+          setDropdownOpen(false);
+        }
+      };
+  
+      if (dropdownOpen) {
+        document.addEventListener("click", clickHandler);
+        document.addEventListener("keydown", keyHandler);
+      } else {
+        document.removeEventListener("click", clickHandler);
+        document.removeEventListener("keydown", keyHandler);
+      }
+  
+      return () => {
+        document.removeEventListener("click", clickHandler);
+        document.removeEventListener("keydown", keyHandler);
+      };
+    }, [dropdownOpen]);
+
+  if (!isGeolocationSupported) {
+    console.log("Geolocation is not supported by your browser");
+    return;
+  }
+
+
+  const requestLocationPermission = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        console.log('Permission granted',position.coords.latitude, position.coords.longitude);
+        startLocationTracking();
+
+
+        // You can use position.coords.latitude and position.coords.longitude here
+      },
+      error => {
+        console.error("Permission denied", error);
+        // Handle permission denied scenario
+      }
+    );
+  };
+
+  const handleLogoutClick = () => {
+
+
+    window.location.href = '/api/auth/logout';
+    localStorage.clear();
+    clearUserId();
+
+    
+  }
+
+
+  const toggleAvailability = () => {
+    // Toggle user availability status
+    setIsAvailable(!isAvailable);
+
+    console.log('isAvailable', isAvailable)
+    if (!isAvailable) {
+      turnOnLocation();
+    } else {
+      turnOffLocation();
+    }
+  };
+
+
+  const turnOnLocation = () => {
+    // Turn on location sharing
+    setIsLocationOn(true);
+    requestLocationPermission();  
+
+    
+  };
+
+  const startLocationTracking = () => {
+    watchIdRef.current = navigator.geolocation.watchPosition(
+      position => {
+        console.log("Position update:", position.coords.latitude, position.coords.longitude);
+        // Update your application state with the new position if needed
+      },
+      error => {
+        console.error("Geolocation error:", error);
+      }
+    );
+
+    console.log(`Location tracking started with id: ${watchIdRef.current}`);
+  };
+
+
+  const turnOffLocation = () => {
+    // Turn off location sharing
+    console.log("Turn off location sharing",watchIdRef);
+    setIsLocationOn(false);
+    navigator.geolocation.clearWatch(watchIdRef.current);
+
+
+
+  };
+
+
 
   return (
     <div className="relative">
@@ -44,21 +142,23 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {userAuth?.name}
           </span>
           <span className="block text-xs">UX Designer</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
+        <span className="h-12 w-12 rounded-full overflow-hidden">
           <Image
-            width={112}
-            height={112}
-            src={"/images/user/user-01.png"}
-            style={{
-              width: "auto",
-              height: "auto",
-            }}
+            width={48}
+            height={48}
+            src={userAuth?.picture ?? "/images/logo/SansPaperID.svg"}
+            // style={{
+            //   width: "auto",
+            //   height: "auto",
+            // }}
             alt="User"
+            className="object-cover w-full h-full" // Ensure the image covers the area
+
           />
         </span>
 
@@ -89,6 +189,51 @@ const DropdownUser = () => {
         }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+        <li>
+        <button
+  onClick={() => toggleAvailability()}
+  className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+>
+  {isAvailable ? (
+    <div className="relative flex items-center justify-center w-6 h-6 bg-green-200 rounded-full">
+      {/* Tick icon */}
+      <svg
+        className="w-5 h-5 text-green-600"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M7.77982 14.6229L3.92021 10.7633C3.74745 10.5906 3.74745 10.3094 3.92021 10.1367C4.09298 9.96401 4.37419 9.96401 4.54695 10.1367L7.00001 12.5897L15.453 4.13669C15.6258 3.96393 15.907 3.96393 16.0798 4.13669C16.2526 4.30945 16.2526 4.59066 16.0798 4.76342L7.77982 14.6229Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  ) : (
+    <div className="relative flex items-center justify-center w-6 h-6 bg-gray-200 rounded-full">
+       {/* Cross icon */}
+       <svg
+        className="w-5 h-5 text-gray-600"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M5.41421 5.41421C5.80474 5.02369 6.4379 5.02369 6.82843 5.41421L10 8.58579L13.1716 5.41421C13.5621 5.02369 14.1953 5.02369 14.5858 5.41421C14.9763 5.80474 14.9763 6.4379 14.5858 6.82843L11.4142 10L14.5858 13.1716C14.9763 13.5621 14.9763 14.1953 14.5858 14.5858C14.1953 14.9763 13.5621 14.9763 13.1716 14.5858L10 11.4142L6.82843 14.5858C6.4379 14.9763 5.80474 14.9763 5.41421 14.5858C5.02369 14.1953 5.02369 13.5621 5.41421 13.1716L8.58579 10L5.41421 6.82843C5.02369 6.4379 5.02369 5.80474 5.41421 5.41421Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  )}
+
+  {isAvailable ? 'Available' : 'Not Available'}
+</button>
+      
+          </li>
           <li>
             <Link
               href="/profile"
@@ -160,8 +305,27 @@ const DropdownUser = () => {
               Account Settings
             </Link>
           </li>
+          <li>
+          <Link
+              href="https://form.sanspaper.com/"
+              className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+            >
+                <div className="relative h-full rounded-full overflow-hidden drop-shadow-2">
+    <Image
+      src={"/images/logo/spfm.svg"}
+      width={25}
+      height={25}
+      alt="spfm"
+    />
+  </div>
+              SP Form
+            </Link>
+          </li>
+      
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+
+        <button           onClick={() => handleLogoutClick()}         
+className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <svg
             className="fill-current"
             width="22"
@@ -179,7 +343,9 @@ const DropdownUser = () => {
               fill=""
             />
           </svg>
-          Log Out
+      Log Out
+
+         
         </button>
       </div>
       {/* <!-- Dropdown End --> */}

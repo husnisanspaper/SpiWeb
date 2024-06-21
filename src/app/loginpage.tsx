@@ -17,6 +17,9 @@ import { useRouter } from 'next/navigation';
 
 const SignIn: React.FC = () => {
 
+  const {user, error, isLoading} = useUser();
+
+  console.log('user lepas logout',user)
 
 
 
@@ -236,7 +239,7 @@ const SignIn: React.FC = () => {
                         Sign Up
                       </Link>
                     </p>
-                    <a href="/api/auth/logout">Logout</a>
+                    <a href="/api/auth/logout">Clear Session</a>
 
                   </div>
                 </form>

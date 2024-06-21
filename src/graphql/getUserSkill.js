@@ -1,10 +1,24 @@
 import { useEffect, useState } from 'react';
-import { initializeGraphQLClient } from 'api/client';
-import { GetFillupFormIdFromProfileDocument } from 'gql/_generated';
-import { GetSkillDropdDownListDocument } from 'gql/_generated';
+import { initializeGraphQLClient } from '@/app/api/client';
+import { GetFillupFormIdFromProfileDocument } from '@/gql/_generated';
+import { GetSkillDropdDownListDocument } from '@/gql/_generated';
 
 
 
+//THIS FILE IS TO QUERY USER SKILL AND DROPDOWN LIST OF SKILLS
+//SO THAT WE CAN DISPLAY THE SKILLS IN THE PROFILE PAGE
+//WE NEEDED TO QUERY USING THE SKILLS'S FIELD ID AND EXPIRY FIELD ID
+//THE FIELD ID IS DIFFERENT FOR EACH ENVIRONMENT -PRODUCTION - STAGING
+//PLEASE CHANGE THE FIELD ID ACCORDINGLY
+//THIS IS DUE TO OUR DATABASE STRUCTURE
+
+    // //STAGING
+  // const skillFieldId = 25991;
+  // const expiryFieldId = 25997;
+
+  //Production
+  const skillFieldId = 26015;
+  const expiryFieldId = 26021;
 
 
 const useUserSkill = (userId) => {
@@ -41,8 +55,8 @@ const useUserSkill = (userId) => {
 
 
        // Parse the response data to extract skill IDs
-          const skillData = response?.[0].skills;
-          const skillIds = skillData.split(',').map(skill => skill.trim());
+          const skillData = response?.[0]?.skills;
+          const skillIds = skillData?.split(',').map(skill => skill.trim());
 
 
           const responseDropdownlist = await fetchSkill(client, skillIds);
@@ -85,13 +99,7 @@ const fetchFillupFormIdFromProfile = async (client, userId) => {
 // Function To Get Dropdownlist of All Skills
 const fetchSkill = async (client,fillupFormId) => {
 
-    // //STAGING
-  // const skillFieldId = 25991;
-  // const expiryFieldId = 25997;
 
-  //Production
-  const skillFieldId = 26015;
-  const expiryFieldId = 26021;
 
   try {
     // Perform GraphQL query using the client
@@ -127,7 +135,7 @@ const fetchSkill = async (client,fillupFormId) => {
   //FETCHING SKILL DROPDOWN LIST
 
 
-  skillDropDownList = response.fillupFormFields?.nodes?.filter(a => a.fieldId == skillFieldId)
+  skillDropDownList = response?.fillupFormFields?.nodes?.filter(a => a.fieldId == skillFieldId)
   .map(a => a.field?.fieldProperties?.nodes?.[0]?.value);
 
 

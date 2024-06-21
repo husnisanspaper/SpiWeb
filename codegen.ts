@@ -9,21 +9,21 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 
 
-const comments = [
-  '/* eslint-disable @typescript-eslint/ban-ts-comment */',
-  '/* eslint-disable @typescript-eslint/no-explicit-any */',
-  '/* eslint-disable @typescript-eslint/no-non-null-assertion */',
-  '/* eslint-disable @typescript-eslint/no-unsafe-assignment */',
-  '/* eslint-disable @typescript-eslint/prefer-optional-chain */',
-  '/* eslint-disable no-prototype-builtins */',
-  '// @ts-nocheck',
-];
+// const comments = [
+//   '/* eslint-disable @typescript-eslint/ban-ts-comment */',
+//   '/* eslint-disable @typescript-eslint/no-explicit-any */',
+//   '/* eslint-disable @typescript-eslint/no-non-null-assertion */',
+//   '/* eslint-disable @typescript-eslint/no-unsafe-assignment */',
+//   '/* eslint-disable @typescript-eslint/prefer-optional-chain */',
+//   '/* eslint-disable no-prototype-builtins */',
+//   '// @ts-nocheck',
+// ];
 
-const addCommentPlugins = comments.map((content) => ({
-  add: {
-    content,
-  },
-}));
+// const addCommentPlugins = comments.map((content) => ({
+//   add: {
+//     content,
+//   },
+// }));
 
 
 
@@ -35,7 +35,7 @@ const config: CodegenConfig = {
     {
       [GQL_STAGING_ENDPOINT]: {
         headers:   {
-          Authorization:`Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpOU0dyLWNmQmN3XzNTYVNRMlQ5WiJ9.eyJpc3MiOiJodHRwczovL3NhbnNwYXBlci5hdS5hdXRoMC5jb20vIiwic3ViIjoiTjMzaWFyVERkWGhDOGFXaWRsT2p4WVdWN0dxU3JjMnBAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vc2Fuc3BhcGVyLmNvbS9wb3N0Z3JhcGhpbGUiLCJpYXQiOjE3MTU5MjA3NTAsImV4cCI6MTcxNjAwNzE1MCwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIiwiYXpwIjoiTjMzaWFyVERkWGhDOGFXaWRsT2p4WVdWN0dxU3JjMnAifQ.PRT2BLleD5rWLYcncR6190Z1FZx5TAuRKuRhvoW0sbdIkYVz1Y_7Ajf5twfzJ8POlW83Jx7glx300LUp9MIRUHUzibgVSXFmBcwzz-TBl3vSSMINP2A6A3kaj9IXVbX9qqtaqfz5EHLIOxG0FLIp9RbhffMd-EnYEgVryfnUAmm-4H8ujMazRu_Eg1ZKAR_A4i9M6yFDPH25_GmG7gZLRMDrahmubZfKE-gpNuCRJf7Yg_ymLyWZHlOa_VedtyDvd-cWCxKLqh8u4dAVC-2NuL8XuBHOkQKr4wwgN9yllfLU4uTzPkKd8PRV484YrOGPG1B10h8ZwTAqeuHd6FvmsA`}
+          Authorization:`Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpOU0dyLWNmQmN3XzNTYVNRMlQ5WiJ9.eyJpc3MiOiJodHRwczovL3NhbnNwYXBlci5hdS5hdXRoMC5jb20vIiwic3ViIjoiTjMzaWFyVERkWGhDOGFXaWRsT2p4WVdWN0dxU3JjMnBAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vc2Fuc3BhcGVyLmNvbS9wb3N0Z3JhcGhpbGUiLCJpYXQiOjE3MTgwOTI1MjYsImV4cCI6MTcxODE3ODkyNiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIiwiYXpwIjoiTjMzaWFyVERkWGhDOGFXaWRsT2p4WVdWN0dxU3JjMnAifQ.2fR7rFX8yunC1KoikgzOQdFNE3W7GpH51tmoafeE_G8JUH7fRdkLdUyq9d_h0ibyOmQm7nf_w_fyLTeUDe7OW0RP-nrIop3J2MtAW4bdXiHt-9zw2JPhqv4hXutp-aobVf1ARYki9dS4LJ7FDQDrBEFZohenZrc-NToKauJ40FKNdDb_jcBXGrVWO2UXeRegsb4lB-bj-kXJKhCafT-Ve5qFWaN_vkDUY7wjVSpuEqjcZmG0g0LciQGOjEsnzrm_3T3Hmdr_xq4iGceD_ZYUYi24VJ5HVe3TN9VCWz8ybKV8ageTeVDRBATX8SYBIq4ivWzt5797Q949YvHWC75qWQ`}
       },
     },
   ],
@@ -45,7 +45,7 @@ const config: CodegenConfig = {
   generates: {
     './src/gql/_generated.ts': {
       plugins: [
-        ...addCommentPlugins,
+        // ...addCommentPlugins,
         'typescript',
         {
           'typescript-operations': {
