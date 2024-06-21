@@ -8,8 +8,8 @@ const ExcelGenerator = ({ dataSkill }) => {
 
 
         // Transform dataSkill into inputData format
-        const inputData = dataSkill.flatMap((a) =>
-        a.skill.map((sk) => ({
+        const inputData = dataSkill?.flatMap((a) =>
+        a.skill?.map((sk) => ({
           description: sk.description,
           expiry: a.expiry ? a.expiry.replace(/"/g, '') : ''
         }))

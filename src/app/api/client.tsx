@@ -8,30 +8,6 @@ import { getAccessToken } from './auth0Service';
 
 
 
-async function customCrossFetch(input: RequestInfo | URL , init?: RequestInit) {
-
-    const response = await crossFetch(input, init);
-    // const body: unknown = await response.json();
-    const clonedResponse = (await response.clone().json()) ;
-  
-    if (Array.isArray(clonedResponse.errors) && clonedResponse.errors.length === 1) {
-      const firstError = clonedResponse.errors[0];
-  
-      switch (firstError.extensions?.code) {
-        case 'INTERNAL_SERVER_ERROR':
-          // The literal response must be thrown here to prevent stale data being
-          // removed on the client in cases where the API server is not available.
-          // This ensures cached client data can be usable until it can revalidate.
-  
-          throw clonedResponse; // eslint-disable-line @typescript-eslint/no-throw-literal
-        default:
-          return response;
-      }
-    }
-  
-    return response;
-  }
-
 
   
 
@@ -68,7 +44,7 @@ async function customCrossFetch(input: RequestInfo | URL , init?: RequestInit) {
     try {
       const authToken = await getAndLogAccessToken();
       const gqlHost = process.env.NEXT_PUBLIC_GQL_HOST_GRAPHILE;
-      
+
       if (!gqlHost) {
         throw new Error('GraphQL host is not defined.');
       }

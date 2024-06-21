@@ -171,24 +171,24 @@ const Profile = () => {
                 <h4 className="font-semibold text-black dark:text-white">
                   My Skills
                   </h4>
-                    {dataSkill && dataSkill.length > 0  ?  <ExcelGenerator dataSkill={dataSkill} /> :null}
+                    {dataSkill ?  <ExcelGenerator dataSkill={dataSkill} /> :null}
 
 
             
                 <p className="mt-4.5">
-                  {isLoadingSkill  && !dataSkill ? <Loader /> : dataSkill == null ?  'No Skill Added Yet' :  
+                  {isLoadingSkill  && !dataSkill ? <Loader /> : dataSkill == null ?  'No Skill Added Yet':  
 
 
 
-                    dataSkill?.map((a: any) =>
-                        a.skill.map((sk: any) => (
-                          <div style={{ marginBottom: '10px' }}> {/* Added margin for spacing */}
+                    (dataSkill as any[]).map((a: any,i: number) =>
+                        a.skill.map((sk: any, j: number) => (
+                          <div key={`${i}-${j}`} style={{ marginBottom: '10px' }}> {/* Added margin for spacing */}
                             <div style={{ fontWeight: 'bold', textAlign: 'left' }}>{sk.description}</div>
                             <div style={{ textAlign: 'left' }}>{a.expiry ? a.expiry.replace(/"/g, '') : ''}
 </div> 
                           </div>
                         ))
-                      )
+                      ) 
                   
                       
                       

@@ -13,8 +13,8 @@ import { GetSkillDropdDownListDocument } from '@/gql/_generated';
 //THIS IS DUE TO OUR DATABASE STRUCTURE
 
     // //STAGING
-//   const skillFieldId = 25991;
-//   const expiryFieldId = 25997;
+  // const skillFieldId = 25991;
+  // const expiryFieldId = 25997;
 
   //Production
   const skillFieldId = 26015;
