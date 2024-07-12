@@ -1,7 +1,5 @@
-
 import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'next/dist/server/web/spec-extension/request';
-// import { RequestInit } from 'graphql-request/dist/types.dom';
+//import { RequestInit } from 'graphql-request/dist/types.dom';
 import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -40385,9 +40383,7 @@ export type GetSkillDropdDownListQueryVariables = Exact<{
 
 export type GetSkillDropdDownListQuery = { __typename?: 'Query', fillupFormFields?: { __typename?: 'FillupFormFieldsConnection', nodes: Array<{ __typename?: 'FillupFormField', id: any, fillupFormId: any, fieldId: any, answer: string, field?: { __typename?: 'Field', fieldProperties: { __typename?: 'FieldPropertiesConnection', nodes: Array<{ __typename?: 'FieldProperty', fieldId: any, propertyId: any, value: string, updatedAt?: any | null }> } } | null }> } | null };
 
-export type GetUserDetailsByIdQueryVariables = Exact<{
-  userID?: InputMaybe<Scalars['BigInt']['input']>;
-}>;
+export type GetUserDetailsByIdQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetUserDetailsByIdQuery = { __typename?: 'Query', users?: { __typename?: 'UsersConnection', nodes: Array<{ __typename?: 'User', id: any, name: string, email: string, phoneNumber?: string | null, password: string, facebookId?: string | null }> } | null };
@@ -40499,8 +40495,8 @@ export const useInfiniteGetSkillDropdDownListQuery = <
     )};
 
 export const GetUserDetailsByIdDocument = `
-    query GetUserDetailsById($userID: BigInt) {
-  users(condition: {id: $userID}) {
+    query GetUserDetailsById {
+  users {
     nodes {
       id
       name
