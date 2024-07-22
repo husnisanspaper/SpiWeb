@@ -15,16 +15,16 @@ const Profile = () => {
 
   const { userId, userAuth } = useUserStore();
   const { dataSkill, errorSkill, isLoadingSkill } = useUserSkill(userId);
-  const { data: userData, isLoading: isUserDataLoading, error: userDataError } = useGetUserDetailsByIdQuery(client); // Provide the client or variables if required
+ // const { data: userData, isLoading: isUserDataLoading, error: userDataError } = useGetUserDetailsByIdQuery(client); // Provide the client or variables if required
 
-  if (isUserDataLoading) return <Loader />; // Display a loader while fetching data
+//  if (isUserDataLoading) return <Loader />; // Display a loader while fetching data
 
-  if (userDataError) {
-    console.error("Error fetching user data:", userDataError);
-    return <div>Error fetching user data.</div>;
-  }
+  // if (userDataError) {
+  //   console.error("Error fetching user data:", userDataError);
+  //   return <div>Error fetching user data.</div>;
+  // }
 
-  const userDetails = userData?.users?.nodes[0]; // Assuming you only fetch details for the current user
+  //const userDetails = userData?.users?.nodes[0]; // Assuming you only fetch details for the current user
 
 
   return (
@@ -98,14 +98,35 @@ const Profile = () => {
 </div>
 
             <div className="mt-4">
-            <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-               Contact Information
+              <h3 className="align-left mb-1.5 font-semibold mb-5">
+                Contact Information
               </h3>
-              <p className="font-medium">{userAuth?.name}</p>
-              <p className="font-medium">{userData?.users?.nodes[0]?.phoneNumber}</p>
-              <p className="font-medium">{userAuth?.email}</p>
+              <div className="flex items-center mt-2 ml-2">
+                <p className="text-black font-semibold mr-2">Phone :</p>
+                <p className=" font-medium">{userAuth?.name}</p>
+              </div>
 
-              <div className="mx-auto max-w-180">
+              <div className="flex items-center mt-2 ml-2">
+                <p className="text-black font-semibold mr-2">Address :</p>
+                <p className=" font-medium">{userAuth?.email}</p>
+              </div>
+              <div className="flex items-center mt-2 ml-2">
+                <p className="text-black font-semibold mr-2">Email :</p>
+                <p className=" font-medium">{userAuth?.email}</p>
+              </div>
+              <h3 className="mt-8 mb-1.5  font-semibold ">
+                Basic Information
+              </h3>
+              <div className="flex items-center mt-2 ml-2">
+                <p className="text-black font-semibold mr-2">Birthday :</p>
+                <p className=" font-medium">{userAuth?.email}</p>
+              </div>
+              <div className="flex items-center mt-2 ml-2">
+                <p className="text-black font-semibold mr-2">Gender :</p>
+                <p className="font-medium">{userAuth?.email}</p>
+              </div>
+
+              {/* <div className="mx-auto max-w-180">
                 <h4 className="font-semibold text-black dark:text-white">
                   My Skills
                   </h4>
@@ -120,10 +141,10 @@ const Profile = () => {
 
                     (dataSkill as any[]).map((a: any,i: number) =>
                         a.skill.map((sk: any, j: number) => (
-                          <div key={`${i}-${j}`} style={{ marginBottom: '10px' }}> {/* Added margin for spacing */}
+                          <div key={`${i}-${j}`} style={{ marginBottom: '10px' }}> 
                             <div style={{ fontWeight: 'bold', textAlign: 'left' }}>{sk.description}</div>
                             <div style={{ textAlign: 'left' }}>{a.expiry ? a.expiry.replace(/"/g, '') : ''}
-</div> 
+                        </div> 
                           </div>
                         ))
                       ) 
@@ -134,13 +155,71 @@ const Profile = () => {
                   }
 
                 </p>
-              </div>
+              </div> */}
 
             </div>
           </div>
         </div>
         </div>
-        <div className="flex-[0.7]">heelloooooo worldddddd</div>
+        <div className="flex-[0.7] mt-10" >
+              <div className="text-black font-bold text-xl">
+                {userAuth?.name}
+              </div>
+              <p className=" font-medium">Position</p>
+              <p className=" mt-2 text-black font-medium">Public Profile</p>
+              <div className="mt-10 flex items-center">
+                <div className="">
+                <p className="mr-10">FORM SUBMITTED</p>
+                <p className="text-black font-semibold">200</p>
+                </div>
+                <div className="">
+                <p className="mr-10">TRAINING COMPLETED</p>
+                <p className="text-black font-semibold ">50</p>
+                </div>
+              </div>
+              <p className="mt-5">Ranking</p>
+              <div className="flex mb-10">
+                <p className="mr-10">8.6</p>
+                <div></div>
+              </div>
+              <div className="flex">
+                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
+                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
+                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
+                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
+              </div>
+
+                {/* Profile description */}
+              <div className="mt-10 mb-5 mr-3">
+                  <p className="mb-5">PROFILE DESCRIPTION</p>
+                  <div className="bg-gray p-4 rounded-lg">
+                    <p className="text-black">Experienced Construction Foreman with a strong track record in project management, team coordination, and adherence to safety standards.</p>
+                    <p className="text-black mt-2">Skilled in blueprint interpretation, resourse managemnet, and ensuring high-quality work. Effective communicator and problem solver, dedicated to achieving project success through proactive leadership.</p>
+                  </div>
+              </div>
+
+                {/* Skills */}
+              <div className="mt-10 mb-5 mr-3">
+                  <p className="mb-5">SKILLS</p>
+                  <div>
+                    <p className="text-black">Leadership and Team Coordination</p>
+                    <p className="text-black mt-2">Experience : 6 - 10 years</p>
+                  </div>
+              </div>
+              
+              {/* Other Skills */}
+              <div className="mt-10 mb-5 mr-3">
+                  <p className="mb-5"> OTHER SKILLS</p>
+                  <div>
+                    <p className="text-black font-md">Construction Management</p>
+                    <p className="text-black mb-5">Experience : 3 - 5 years</p>
+                    <p className="text-black font-md">Safety Compliance</p>
+                    <p className="text-black mb-5">Experience : 2 - 5 years</p>
+                  </div>
+              </div>
+
+        </div>
+        
         </div>
 
           
