@@ -8,6 +8,7 @@ let client: GraphQLClient; // Declare client variable with explicit type
 async function customCrossFetch(input: RequestInfo | URL, init?: RequestInit) {
 
     const response = await crossFetch(input, init);
+    console.log('yyyyy', response);
     // const body: unknown = await response.json();
     const clonedResponse = (await response.clone().json()) ;
   
@@ -73,7 +74,7 @@ async function customCrossFetch(input: RequestInfo | URL, init?: RequestInit) {
 
    const initializeGraphQLClient = async () => {
 
-    const REACT_APP_GQL_HOST_GRAPHILE = 'https://graphql.sanspaper.com:20991/graphql';
+    const REACT_APP_GQL_HOST_GRAPHILE = 'https://form-staging2.sanspaper.com:20991/graphql';
 
     try {
         const authToken = await getAndLogAccessToken();
@@ -83,8 +84,8 @@ async function customCrossFetch(input: RequestInfo | URL, init?: RequestInit) {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             },
-            errorPolicy: 'all',
-            fetch: customCrossFetch,
+           // errorPolicy: 'all',
+           // fetch: customCrossFetch,
         });
     } catch (error) {
         console.error('Error setting up GraphQL client:', error);

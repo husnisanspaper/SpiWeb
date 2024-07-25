@@ -5,27 +5,88 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Link from "next/link";
 import { useUserStore } from "@/store/user/userStore";
-import useUserSkill from "@/graphql/getUserSkill";
-import Loader from "@/components/common/Loader";
-import ExcelGenerator from "@/components/ExcelGenerator"; 
-import { useGetUserDetailsByIdQuery } from "@/gql/_generated";
-import { client } from "@/app/api/client";
+import {useUserData} from "@/graphql/useUserData";
+import { UserProfile } from "./types/userProfile";
+import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faSave, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Input, Select, Switch } from 'antd';
 
-const Profile = () => {
+const Profile = ({route}: {route:any}) => {
 
   const { userId, userAuth } = useUserStore();
-  const { dataSkill, errorSkill, isLoadingSkill } = useUserSkill(userId);
- // const { data: userData, isLoading: isUserDataLoading, error: userDataError } = useGetUserDetailsByIdQuery(client); // Provide the client or variables if required
+  const { dataUser, errorUser, isLoadingUser } = useUserData(userId || "");
+  const { Option } = Select;
+  const [isAvailableToWork, setIsAvailableToWork] = useState(false);
+  const [preferredLocation, setPreferredLocation] = useState('');
 
-//  if (isUserDataLoading) return <Loader />; // Display a loader while fetching data
+  const handleAvailabilityChange = (checked:any) => {
+    setIsAvailableToWork(checked);
+    console.log(`Available to work: ${checked}`);
+    // Handle the change event here, e.g., update state or make an API call
+  };
 
-  // if (userDataError) {
-  //   console.error("Error fetching user data:", userDataError);
-  //   return <div>Error fetching user data.</div>;
-  // }
+  const handleLocationChange = (event:any) => {
+    setPreferredLocation(event.target.value);
+    console.log(`Preferred location: ${event.target.value}`);
+    // Handle the change event here, e.g., update state or make an API call
+  };
 
-  //const userDetails = userData?.users?.nodes[0]; // Assuming you only fetch details for the current user
+  const [images, setImages] = useState([
+    '/images/cards/cards-02.png',
+    '/images/cards/cards-02.png',
+    '/images/cards/cards-02.png',
+    '/images/cards/cards-02.png',
+  ]);
 
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [isEditingGallery, setIsEditingGallery] = useState(false);
+  const [newImages, setNewImages] = useState<string[]>([]);
+  const [bio, setBio] = useState(dataUser?.[0]?.summaryBio || "No description");
+
+  const handleEdit = () => {
+    setIsEditingProfile(true);
+  };
+
+  const handleEditGallery = () => {
+    setIsEditingGallery(true);
+  };
+
+  const handleSave = () => {
+    // Here you can add the logic to save the updated bio, e.g., make an API call
+    setIsEditingProfile(false);
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const newImage = URL.createObjectURL(e.target.files[0]);
+      setImages([...images, newImage]);
+    }
+  };
+
+  const saveGalleryChanges = () => {
+    setImages(prev => [...prev, ...newImages]);
+    setNewImages([]);
+    setIsEditingGallery(false); // Exit edit mode
+  };
+
+
+  const handleRemoveImage = (index: number) => {
+    setImages(images.filter((_, i) => i !== index));
+  };
+
+  const toggleGalleryEditing = () => {
+    setIsEditingGallery((prev) => !prev);
+    if (isEditingGallery) {
+      // Save changes when exiting edit mode
+      saveGalleryChanges();
+    }
+  };
+
+  const handleWorkTypeChange = (value:any) => {
+    console.log(`Selected work type: ${value}`);
+    // Handle the change event here, e.g., update state or make an API call
+  };
 
   return (
     <DefaultLayout>
@@ -103,59 +164,52 @@ const Profile = () => {
               </h3>
               <div className="flex items-center mt-2 ml-2">
                 <p className="text-black font-semibold mr-2">Phone :</p>
-                <p className=" font-medium">{userAuth?.name}</p>
+                <p className=" font-medium">{dataUser?.[0]?.phoneNumber}</p>
               </div>
 
               <div className="flex items-center mt-2 ml-2">
                 <p className="text-black font-semibold mr-2">Address :</p>
-                <p className=" font-medium">{userAuth?.email}</p>
+                <p className=" font-medium">{dataUser?.[0]?.profile?.address}</p>
               </div>
               <div className="flex items-center mt-2 ml-2">
                 <p className="text-black font-semibold mr-2">Email :</p>
-                <p className=" font-medium">{userAuth?.email}</p>
+                <p className=" font-medium">{dataUser?.[0]?.email}</p>
               </div>
+
+              {/* Preferences */}
               <h3 className="mt-8 mb-1.5  font-semibold ">
-                Basic Information
+                Preferences
               </h3>
               <div className="flex items-center mt-2 ml-2">
-                <p className="text-black font-semibold mr-2">Birthday :</p>
-                <p className=" font-medium">{userAuth?.email}</p>
+                <p className="text-black font-semibold mr-2">Preferred Work Type :</p>
+                <Select
+                  defaultValue="Full-time"
+                  style={{ width: 120 }}
+                  onChange={handleWorkTypeChange}
+                >
+                  <Option value="Full-time">Full-time</Option>
+                  <Option value="Part-time">Part-time</Option>
+                  <Option value="Contract">Contract</Option>
+                </Select>
               </div>
               <div className="flex items-center mt-2 ml-2">
-                <p className="text-black font-semibold mr-2">Gender :</p>
-                <p className="font-medium">{userAuth?.email}</p>
+                <p className="text-black font-semibold mr-2">Available To Work:</p>
+                <Switch
+                  checked={isAvailableToWork}
+                  onChange={handleAvailabilityChange}
+                  checkedChildren="Yes"
+                  unCheckedChildren="No"
+                />
               </div>
-
-              {/* <div className="mx-auto max-w-180">
-                <h4 className="font-semibold text-black dark:text-white">
-                  My Skills
-                  </h4>
-                    {dataSkill ?  <ExcelGenerator dataSkill={dataSkill} /> :null}
-
-
-            
-                <p className="mt-4.5">
-                  {isLoadingSkill  && !dataSkill ? <Loader /> : dataSkill == null ?  'No Skill Added Yet':  
-
-
-
-                    (dataSkill as any[]).map((a: any,i: number) =>
-                        a.skill.map((sk: any, j: number) => (
-                          <div key={`${i}-${j}`} style={{ marginBottom: '10px' }}> 
-                            <div style={{ fontWeight: 'bold', textAlign: 'left' }}>{sk.description}</div>
-                            <div style={{ textAlign: 'left' }}>{a.expiry ? a.expiry.replace(/"/g, '') : ''}
-                        </div> 
-                          </div>
-                        ))
-                      ) 
-                  
-                      
-                      
-  
-                  }
-
-                </p>
-              </div> */}
+              <div className="flex items-center mt-2 ml-2">
+                <p className="text-black font-semibold mr-2">Prefered Location(s): </p>
+                <Input
+                  value={preferredLocation}
+                  onChange={handleLocationChange}
+                  placeholder="Enter preferred location"
+                  style={{ width: 200 }}
+                />
+              </div>
 
             </div>
           </div>
@@ -163,9 +217,9 @@ const Profile = () => {
         </div>
         <div className="flex-[0.7] mt-10" >
               <div className="text-black font-bold text-xl">
-                {userAuth?.name}
+                {dataUser?.[0]?.name}
               </div>
-              <p className=" font-medium">Position</p>
+              <p className=" font-medium">{dataUser?.[0]?.jobTitle}</p>
               <p className=" mt-2 text-black font-medium">Public Profile</p>
               <div className="mt-10 flex items-center">
                 <div className="">
@@ -182,25 +236,77 @@ const Profile = () => {
                 <p className="mr-10">8.6</p>
                 <div></div>
               </div>
-              <div className="flex">
-                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
-                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
-                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
-                <img src="/images/cards/cards-02.png" className="mr-10 w-40 h-28"></img>
-              </div>
+
+              {/* Gallery section */}
+              <div className="mt-10 mb-5 mr-3">
+        <div className="flex items-center justify-between mb-5">
+          <p className="font-bold text-lg">Gallery</p>
+          <button
+            onClick={toggleGalleryEditing}
+            className="flex items-center px-4 py-2 text-blue rounded-md"
+          >
+            <FontAwesomeIcon icon={isEditingGallery ? faSave : faEdit} className="mr-2" />
+            {isEditingGallery ? 'Save' : 'Edit'}
+          </button>
+        </div>
+        {isEditingGallery && (
+          <input type="file" accept="image/*" onChange={handleImageUpload} className="mb-4" />
+        )}
+        <div className="flex flex-wrap">
+          {images.map((image, index) => (
+            <div key={index} className="relative mr-10 mb-4">
+              <img src={image} className="w-40 h-28 object-cover" alt={`Gallery Image ${index + 1}`} />
+              {isEditingGallery && (
+                <button
+                  onClick={() => handleRemoveImage(index)}
+                  className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full"
+                >
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
 
                 {/* Profile description */}
-              <div className="mt-10 mb-5 mr-3">
-                  <p className="mb-5">PROFILE DESCRIPTION</p>
-                  <div className="bg-gray p-4 rounded-lg">
-                    <p className="text-black">Experienced Construction Foreman with a strong track record in project management, team coordination, and adherence to safety standards.</p>
-                    <p className="text-black mt-2">Skilled in blueprint interpretation, resourse managemnet, and ensuring high-quality work. Effective communicator and problem solver, dedicated to achieving project success through proactive leadership.</p>
-                  </div>
+                <div className="mt-10 mb-5 mr-3">
+              <div className="flex justify-between items-center mb-5">
+                <p className="font-bold text-lg">PROFILE DESCRIPTION</p>
+                {!isEditingProfile && (
+                  <button
+                    onClick={handleEdit}
+                    className="px-4 py-2 text-blue rounded-md"
+                  >
+                    <FontAwesomeIcon icon={faEdit} className="mr-2" />
+                    Edit
+                  </button>
+                )}
               </div>
+              <div className="bg-gray p-4 rounded-lg relative">
+                {isEditingProfile ? (
+                  <div>
+                    <textarea
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                      className="w-full h-40 p-2 border border-gray-300 rounded-md"
+                    />
+                    <button onClick={handleSave} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">
+                      Save
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <p className="text-black">{bio}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
 
                 {/* Skills */}
               <div className="mt-10 mb-5 mr-3">
-                  <p className="mb-5">SKILLS</p>
+                  <p className="font-bold text-lg mb-5">SKILLS</p>
                   <div>
                     <p className="text-black">Leadership and Team Coordination</p>
                     <p className="text-black mt-2">Experience : 6 - 10 years</p>
@@ -209,7 +315,7 @@ const Profile = () => {
               
               {/* Other Skills */}
               <div className="mt-10 mb-5 mr-3">
-                  <p className="mb-5"> OTHER SKILLS</p>
+                  <p className="font-bold text-lg mb-5"> OTHER SKILLS</p>
                   <div>
                     <p className="text-black font-md">Construction Management</p>
                     <p className="text-black mb-5">Experience : 3 - 5 years</p>
